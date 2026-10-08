@@ -1,0 +1,121 @@
+{
+ "duration": 46.958,
+ "cuts": [
+  {
+   "part": 0,
+   "name": "kolik",
+   "start": 0.0,
+   "end": 2.0,
+   "focal": 0.52
+  },
+  {
+   "part": 1,
+   "name": "mapa",
+   "start": 2.0,
+   "end": 4.458,
+   "focal": 0.46
+  },
+  {
+   "part": 2,
+   "name": "prichod",
+   "start": 4.458,
+   "end": 7.458,
+   "focal": 0.5
+  },
+  {
+   "part": 3,
+   "name": "kontroler",
+   "start": 7.458,
+   "end": 8.958,
+   "focal": 0.6
+  },
+  {
+   "part": 4,
+   "name": "udery",
+   "start": 8.958,
+   "end": 11.958,
+   "focal": 0.5
+  },
+  {
+   "part": 5,
+   "name": "kontrola",
+   "start": 11.958,
+   "end": 13.958,
+   "focal": 0.5
+  },
+  {
+   "part": 6,
+   "name": "ziriav",
+   "start": 13.958,
+   "end": 15.875,
+   "focal": 0.5
+  },
+  {
+   "part": 7,
+   "name": "vykop",
+   "start": 15.875,
+   "end": 20.833,
+   "focal": 0.55
+  },
+  {
+   "part": 8,
+   "name": "zostup",
+   "start": 20.833,
+   "end": 22.541,
+   "focal": 0.6
+  },
+  {
+   "part": 9,
+   "name": "klinec",
+   "start": 22.541,
+   "end": 24.458,
+   "focal": 0.58
+  },
+  {
+   "part": 10,
+   "name": "dom",
+   "start": 24.458,
+   "end": 29.458,
+   "focal": 0.5
+  },
+  {
+   "part": 11,
+   "name": "dom2",
+   "start": 29.458,
+   "end": 29.958,
+   "focal": 0.5
+  },
+  {
+   "part": 12,
+   "name": "laser",
+   "start": 29.958,
+   "end": 34.958,
+   "focal": 0.45
+  },
+  {
+   "part": 13,
+   "name": "plan",
+   "start": 34.958,
+   "end": 46.958,
+   "focal": 0.31
+  }
+ ],
+ "stills": [
+  0.8,
+  3.721,
+  8.208,
+  12.858,
+  17.362,
+  24.075,
+  31.958,
+  45.998
+ ],
+ "gallery": [
+  0.8,
+  8.058,
+  17.362,
+  24.075,
+  31.958,
+  45.518
+ ]
+}

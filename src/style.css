@@ -1,0 +1,192 @@
+/* Promarkt web from the film. One pinned stage; the scroll drives film time. Text never floats over the subject:
+   each card belongs to one stretch of film and to the empty part of that frame. */
+:root {
+  --night: #17181a;
+  --graphite: #2c2c2e;
+  --paper: #f3f1ea;
+  --ink: #2c2c2e;
+  --orange: #dc802d;
+  --orange-ink: #a85a17;      /* orange for small text on paper (contrast) */
+  --stake: #cd191e;
+  --muted: #5e5c57;
+  --display: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  --nav-h: 64px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--night); color: var(--paper); }
+body { font-family: var(--display); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+/* ---------- Nav: readable over any frame, solid once scrolled ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 20; height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+  display: flex; align-items: center; gap: 28px;
+  padding: env(safe-area-inset-top, 0px) clamp(16px, 4vw, 48px) 0;
+  background: linear-gradient(to bottom, rgba(23, 24, 26, .62), rgba(23, 24, 26, 0));
+  transition: background-color .3s;
+}
+.nav.is-stuck { background: rgba(23, 24, 26, .94); }
+.nav__logo img, .nav__logo svg { height: 44px; width: auto; display: block; }
+.flyT { position: absolute; left: 0; top: 0; z-index: 5; pointer-events: none; visibility: hidden; height: auto; overflow: visible; }
+.flyT path { transition: fill .2s; }
+.nav__links { display: flex; gap: 22px; margin-left: auto; font-size: 14px; }
+.nav__links a { text-decoration: none; opacity: .85; }
+.nav__links a:hover { opacity: 1; }
+.nav__call { text-decoration: none; font-family: var(--mono); font-size: 15px; background: var(--orange); color: var(--ink); padding: 9px 14px; font-weight: 500; }
+.nav__call span { font-family: var(--display); font-weight: 700; margin-right: 6px; }
+
+/* ---------- Stage ---------- */
+.narrative { position: relative; }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.frame { position: absolute; inset: 0; overflow: hidden; background: var(--night) center / cover no-repeat url('/poster_1280.jpg'); }
+#film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 50%; will-change: transform; }
+.anchor { position: absolute; left: 0; width: 1px; height: 1px; }
+
+/* ---------- Hero: no box, two lines, over the dark soil left of the stake ---------- */
+.hero { position: absolute; left: clamp(16px, 6vw, 90px); bottom: 14vh; max-width: 34rem; z-index: 3; }
+.hero h1 { font-size: clamp(40px, 5.6vw, 88px); line-height: .96; font-weight: 800; font-stretch: 112%; margin: 0 0 16px; text-wrap: balance; text-shadow: 0 2px 28px rgba(0, 0, 0, .5); }
+.hero__sub { font-size: clamp(16px, 1.3vw, 20px); margin: 0 0 22px; text-shadow: 0 1px 14px rgba(0, 0, 0, .7); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); margin: 0 0 14px; }
+.eyebrow--ink { color: var(--orange-ink); }
+.btn { display: inline-block; text-decoration: none; background: var(--orange); color: var(--ink); font-weight: 700; padding: 12px 18px; }
+
+/* ---------- Cards: "popis bodu" from a survey drawing ---------- */
+.card {
+  position: absolute; z-index: 3; width: min(23rem, calc(100vw - 32px));
+  background: var(--paper); color: var(--ink); border: 1px solid var(--ink); padding: 18px 20px 20px;
+  opacity: 0; visibility: hidden;
+}
+.card[data-pos="tl"] { left: clamp(16px, 6vw, 90px); top: calc(var(--nav-h) + 6vh); }
+.card[data-pos="bl"] { left: clamp(16px, 6vw, 90px); bottom: 9vh; }
+.card[data-pos="tr"] { right: clamp(16px, 6vw, 90px); top: calc(var(--nav-h) + 6vh); }
+.card__tag { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--orange-ink); margin: 0 0 10px; }
+.card__tag i { width: 6px; height: 6px; background: var(--stake); display: inline-block; }
+.card h2 { font-size: clamp(22px, 2vw, 30px); line-height: 1.08; font-stretch: 106%; margin: 0 0 8px; text-wrap: balance; }
+.card p:last-child { font-size: 15px; line-height: 1.5; margin: 0; color: var(--muted); }
+
+/* ---------- Measurement: one mono line above the progress bar, never a box over the frame ---------- */
+.measure {
+  position: absolute; left: clamp(16px, 6vw, 90px); bottom: 18px; z-index: 3; margin: 0;
+  font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--paper);
+  background: rgba(23, 24, 26, .78); padding: 6px 10px; opacity: 0; transition: opacity .25s;
+}
+.measure.is-on { opacity: 1; }
+.measure b { color: var(--orange); font-weight: 500; margin-right: 6px; }
+.measure em { font-style: normal; border-bottom: 1px solid var(--orange); }
+
+.progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(243, 241, 234, .14); z-index: 4; }
+.progress i { display: block; height: 100%; width: 100%; background: var(--orange); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ---------- Contact: the title block of a geometric plan ---------- */
+.block { position: relative; z-index: 3; background: var(--paper); color: var(--ink); padding: 12vh clamp(16px, 6vw, 90px) 10vh; }
+.block__inner { max-width: 980px; margin: 0 auto; display: grid; gap: 36px; }
+.block__logo { width: min(420px, 78vw); margin: 0 0 32px; }
+.block__logo svg { display: block; width: 100%; height: auto; }
+.intro { position: fixed; inset: 0; z-index: 40; background: var(--night); display: grid; place-items: center; pointer-events: none; }
+.intro__logo { width: min(72vw, 820px); }
+.intro__logo svg { display: block; width: 100%; height: auto; }
+/* the phone stays reachable during the intro */
+html.is-intro .nav { z-index: 41; background: none; }
+html.is-intro .nav__logo, html.is-intro .nav__links { visibility: hidden; }
+html.is-intro .callbar { z-index: 41; }
+.block h2 { font-size: clamp(30px, 3.6vw, 56px); font-stretch: 110%; line-height: 1.02; margin: 0; text-wrap: balance; }
+.block__grid { display: grid; grid-template-columns: 1.2fr 1fr; border: 1.5px solid var(--ink); }
+.block__grid > div { padding: 24px; border-right: 1.5px solid var(--ink); min-width: 0; }
+.label { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange-ink); margin: 0 0 6px; }
+.big { font-family: var(--mono); font-size: clamp(30px, 4vw, 52px); margin: 0 0 10px; font-variant-numeric: tabular-nums; }
+.big a { text-decoration: none; }
+.stamp { margin: 0; display: grid; }
+.stamp div { display: grid; grid-template-columns: 6rem 1fr; border-bottom: 1px solid rgba(44, 44, 46, .35); }
+.stamp div:last-child { border-bottom: 0; }
+.stamp dt { font-family: var(--mono); font-size: 12px; padding: 12px 10px; border-right: 1px solid rgba(44, 44, 46, .35); color: var(--muted); }
+.stamp dd { margin: 0; padding: 12px; font-size: 15px; min-width: 0; }
+.note { font-size: 14px; color: var(--muted); margin: 0; }
+.foot { position: relative; z-index: 3; background: var(--graphite); color: #cfcdc6; padding: 28px clamp(16px, 6vw, 90px) calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 13px; line-height: 1.6; }
+.foot p { margin: 0 0 6px; max-width: 980px; }
+
+.callbar { display: none; }
+
+/* ---------- Phone: own portrait strip, call bar at the bottom ---------- */
+@media (max-aspect-ratio: 3/4) {
+  .frame { background-image: url('/poster_portrait.jpg'); }
+}
+@media (max-width: 860px) {
+  :root { --nav-h: 56px; }
+  .nav__links, .nav__call { display: none; }
+  .nav__logo img, .nav__logo svg { height: 36px; }
+  .hero { bottom: calc(12vh + 56px); right: 16px; }
+  .card, .card[data-pos] { left: 16px; right: 16px; width: auto; }
+  .card[data-pos="tl"], .card[data-pos="tr"] { top: calc(var(--nav-h) + 3vh); bottom: auto; }
+  .card[data-pos="bl"] { bottom: calc(56px + 4vh); top: auto; }
+  .measure { left: 16px; right: 16px; bottom: calc(56px + 10px); font-size: 12px; }
+  .progress { bottom: 56px; }
+  .block__grid { grid-template-columns: 1fr; }
+  .block__grid > div { border-right: 0; border-bottom: 1.5px solid var(--ink); }
+  .callbar {
+    display: flex; align-items: center; justify-content: center; position: fixed; inset: auto 0 0 0; z-index: 30;
+    height: calc(56px + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--orange); color: var(--ink); font-weight: 700; text-decoration: none; font-size: 17px;
+  }
+  .foot { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+}
+
+body.shot .nav { background: rgba(23, 24, 26, .62); }
+@media (prefers-reduced-motion: reduce) { .measure, .nav { transition: none; } }
+@media (max-width: 860px) { .measure__tol { display: none; } }
+
+/* ---------- W2: cards that assemble ---------- */
+.card--build { background: none; border: 0; opacity: 1; }
+.card--build::before { content: ''; position: absolute; inset: 0; background: var(--paper); opacity: var(--paper, 0); z-index: -1; }
+.card--build { --paper: 0; isolation: isolate; }
+.card--build::before { opacity: var(--paper); background: #f3f1ea; }
+.ln { position: absolute; background: var(--ink); pointer-events: none; }
+.ln--t, .ln--b { left: 0; right: 0; height: 1px; transform-origin: 0 50%; }
+.ln--t { top: 0; } .ln--b { bottom: 0; }
+.ln--l, .ln--r { top: 0; bottom: 0; width: 1px; transform-origin: 50% 0; }
+.ln--l { left: 0; } .ln--r { right: 0; }
+.card h2 .w { display: inline-block; will-change: transform; }
+.card__tag i { will-change: transform; }
+
+.hero__note { font-family: var(--mono); font-size: 13px; margin: 12px 0 0; color: var(--paper); text-shadow: 0 1px 10px rgba(0, 0, 0, .7); }
+.hero .eyebrow { display: inline-block; background: rgba(23, 24, 26, .72); padding: 4px 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- static mode: still frames instead of the video ---------- */
+.still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+html.is-static .still { display: block; }
+html.is-static #film { display: none; }
+
+/* ---------- ending: the parcel outline, then the rule of Kontakt ---------- */
+.parcel { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; overflow: visible; }
+.parcel polyline { fill: none; stroke: var(--stake); stroke-width: 3; stroke-linejoin: miter; }
+.block__rule { position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--stake); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ---------- gallery: six stops, a survey sheet ---------- */
+.gallery { position: relative; z-index: 3; background: var(--paper); color: var(--ink); padding: 0 clamp(16px, 6vw, 90px) 12vh; }
+.gallery__inner { max-width: 980px; margin: 0 auto; border-top: 1.5px solid var(--ink); padding-top: 8vh; }
+.gallery h2 { font-size: clamp(26px, 2.8vw, 40px); font-stretch: 108%; margin: 0 0 28px; text-wrap: balance; }
+.gallery__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1.5px solid var(--ink); }
+.gallery__grid li { border-right: 1px solid rgba(44, 44, 46, .35); border-bottom: 1px solid rgba(44, 44, 46, .35); min-width: 0; }
+.gallery__grid li:nth-child(3n) { border-right: 0; }
+.gallery__grid li:nth-child(n+4) { border-bottom: 0; }
+.gallery__grid button { all: unset; cursor: pointer; display: block; width: 100%; }
+.gallery__grid button:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
+.gallery__grid img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.gallery__grid span { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; padding: 10px 12px; }
+.gallery__grid button:hover img { filter: brightness(1.06); }
+.lightbox { border: 0; padding: 0; max-width: min(1100px, 94vw); background: var(--night); color: var(--paper); }
+.lightbox::backdrop { background: rgba(23, 24, 26, .85); }
+.lightbox img { display: block; width: 100%; height: auto; }
+.lightbox p { margin: 0; padding: 12px 16px 0; font-size: 15px; }
+.lightbox__bar { display: flex; gap: 8px; justify-content: flex-end; padding: 12px 16px 16px; }
+.lightbox__bar button { font: inherit; font-weight: 700; border: 0; padding: 10px 14px; cursor: pointer; background: var(--orange); color: var(--ink); }
+.lightbox__bar button + button { background: transparent; color: var(--paper); border: 1px solid rgba(243, 241, 234, .4); }
+
+@media (max-width: 860px) {
+  .hero .btn { display: none; }               /* the call bar is the one call button on phones */
+  .gallery__grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; border: 0; gap: 10px; }
+  .gallery__grid li { flex: 0 0 82%; scroll-snap-align: start; border: 1.5px solid var(--ink); }
+}
