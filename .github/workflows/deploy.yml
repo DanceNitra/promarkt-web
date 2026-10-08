@@ -21,6 +21,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      # the lockfile is written on Windows; npm then skips rollup's Linux binary (npm/cli#4828)
+      - run: npm install --no-save @rollup/rollup-linux-x64-gnu
       - run: npx vite build
       - uses: actions/upload-pages-artifact@v3
         with:
