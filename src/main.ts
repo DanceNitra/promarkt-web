@@ -45,6 +45,16 @@ const CARDS: [string, string, number, string, number][] = [
   ['c3', 'laser', 0.1, 'plan', 0.3],
 ];
 const HERO_END = at('kolik', 0.9);
+// #69 subtitles: the stretches between cards were bare film; each says what the frame shows. [cut from, f, cut to, f, text]
+const SUBS: [string, number, string, number, string][] = [
+  ['udery', 0.05, 'udery', 1, 'Kolík presne nad bodom z projektu.'],
+  ['vykop', 0.45, 'zostup', 1, 'Základy idú presne podľa kolíkov.'],
+  ['klinec', 0.05, 'klinec', 1, 'Na betóne: klinec do rohu múru.'],
+  ['dom', 0, 'dom2', 1, 'Dom rastie. Ku kolaudácii prídeme znova.'],
+  ['plan', 0.3, 'plan', 0.75, 'Výsledok: geometrický plán s vašou parcelou.'],
+];
+const sub = document.getElementById('sub')!;
+let subText = '';
 const MEASURE: [number, number] = [at('kontrola', 0.05), at('ziriav', 0.4)];
 // Parcel 000/2 on the plan: its corners read off the strip frame at 48.3 s (a 6x crop), in the 16:9 frame.
 const PARCEL = [[0.2835, 0.5188], [0.3354, 0.4923], [0.3254, 0.4313], [0.2738, 0.4574]];   // corners 1, 2, 3, 4
@@ -243,6 +253,9 @@ function render() {
   hero.style.visibility = t > HERO_END ? 'hidden' : 'visible';
   CARDS.forEach(([, c0, f0, c1, f1], i) => driveCard(cards[i], t > at(c0, f0) && t < at(c1, f1), reduced));
   measure.classList.toggle('is-on', t > MEASURE[0] && t < MEASURE[1]);
+  const sNow = SUBS.find(([c0, f0, c1, f1]) => t > at(c0, f0) && t < at(c1, f1));
+  const sText = sNow ? sNow[4] : '';
+  if (sText !== subText) { subText = sText; if (sText) sub.textContent = sText; sub.classList.toggle('is-on', Boolean(sText)); }
 
   // Ending: the outline of parcel 000/2 is drawn over the plan, then carries on as the top rule of Kontakt.
   const pd = staticMode ? 0 : clamp01((t - PARCEL_DRAW[0]) / (PARCEL_DRAW[1] - PARCEL_DRAW[0]));

@@ -528,3 +528,9 @@ html.is-static #film { display: none; }
   .fcta, .rail, .quick a::after, .gallery__grid img { transition: none !important; }
   .gallery__grid button:hover img { transform: none; }
 }
+
+/* #69 film subtitles: a big line, bottom-left, in the stretches with no card */
+.sub { position: absolute; left: clamp(16px, 5vw, 80px); bottom: 40px; z-index: 5; margin: 0; max-width: min(15ch, 46vw); font-family: var(--display, inherit); font-weight: 800; font-stretch: 112%; font-size: clamp(30px, 4.2vw, 64px); line-height: 1.02; letter-spacing: -.02em; color: #f3f1ea; text-shadow: 0 2px 24px rgba(0,0,0,.65), 0 1px 3px rgba(0,0,0,.6); opacity: 0; transform: translateY(14px); transition: opacity .35s, transform .35s; pointer-events: none; }
+.sub.is-on { opacity: 1; transform: none; }
+@media (max-width: 860px) { .sub { left: 16px; right: 16px; max-width: none; bottom: calc(56px + 14px + 78px); font-size: 30px; } }
+@media (prefers-reduced-motion: reduce) { .sub { transition: none; transform: none; } }
