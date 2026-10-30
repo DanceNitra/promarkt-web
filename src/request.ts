@@ -187,3 +187,10 @@ if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     dlg.showModal();
   });
 }
+
+// #76: a question that is not in the list goes out as an SMS, typed here
+const qText = document.getElementById('qText') as HTMLTextAreaElement | null;
+const qSend = document.getElementById('qSend') as HTMLAnchorElement | null;
+const qUpdate = () => { if (qSend) qSend.href = `sms:${NUMBER}?&body=${encodeURIComponent(`Dobrý deň, mám otázku: ${qText?.value.trim() ?? ''}`)}`; };
+qText?.addEventListener('input', qUpdate);
+qUpdate();

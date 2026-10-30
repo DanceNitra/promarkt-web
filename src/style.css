@@ -567,3 +567,11 @@ html.is-static #film { display: none; }
 .mapbtn.is-set i { background: var(--stake); }
 .mapbtn.is-set::after { content: '✓'; color: var(--stake); }
 .mapbtn.is-set[aria-expanded="true"]::after { content: '×'; color: inherit; }
+/* #76 ask your own question */
+.qbox { margin-top: 28px; display: grid; gap: 10px; background: #fff; border: 1px solid var(--ink); padding: 18px; box-shadow: 8px 8px 0 var(--ink); }
+.qbox label { font-weight: 700; font-size: 17px; }
+.qbox textarea { font: 16px/1.4 var(--display); border: 1px solid rgba(44,44,46,.5); padding: 10px 12px; resize: vertical; background: var(--paper); color: var(--ink); }
+.qbox textarea:focus { outline: 2px solid var(--orange); outline-offset: 1px; }
+.qbox__row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.qbox__tel { font-family: var(--mono); font-size: 14px; color: var(--ink); }
+.faq details a { color: var(--ink); text-decoration-color: var(--orange); text-underline-offset: 3px; }
