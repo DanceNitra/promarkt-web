@@ -259,7 +259,18 @@ function render() {
     for (let i = 0; !have && i < video.buffered.length; i++) have = t >= video.buffered.start(i) && t <= video.buffered.end(i);
     document.documentElement.classList.toggle('is-gap', !have);
     if (!have) { const s = stillFor(t); if (s !== lastStill) { lastStill = s; still.src = s; } }
-    if (video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - t) > 1 / 120) video.currentTime = t;
+    // Forward scrolling PLAYS the film towards the scroll position, which the decoder does at full frame rate;
+    // a seek costs one decode round trip (about 18 pictures a second, measured), so it is kept for jumps and for going back.
+    if (video.readyState >= 2 && !video.seeking) {
+      const d = t - video.currentTime;
+      if (d > 0.02 && d < 2.5) {
+        video.playbackRate = Math.min(8, Math.max(0.3, d * 5));
+        if (video.paused) video.play().catch(() => {});
+      } else {
+        if (!video.paused) video.pause();
+        if (Math.abs(d) > 1 / 60) video.currentTime = t;
+      }
+    }
   }
 
   const z = staticMode ? { s: 1, x: 0.5, y: 0.5 } : zoomAt(t);
