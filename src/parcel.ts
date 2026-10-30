@@ -45,7 +45,7 @@ btn?.addEventListener('click', async () => {
     try {
       const r = parse(await (await fetch(`${WMS}?${q}`)).text());
       if (!r) { if (out) out.textContent = 'Tu sme parcelu nenašli. Skúste kliknúť do stredu pozemku.'; return; }
-      if (place) { place.value = `parcela ${r.no}, k. ú. ${r.area}`; place.dispatchEvent(new Event('input', { bubbles: true })); }
+      if (place) { place.dataset.pos = `${e.latlng.lat.toFixed(6)},${e.latlng.lng.toFixed(6)}`; place.value = `parcela ${r.no}, k. ú. ${r.area}`; place.dispatchEvent(new Event('input', { bubbles: true })); }
       // #74: the choice shows on the button itself, so the map can close and the form stays short
       if (btn) { btn.classList.add('is-set'); btn.querySelector('b')!.textContent = `Parcela ${r.no}, k. ú. ${r.area}`; btn.querySelector('small')!.textContent = `${r.m2 ? `${Number(r.m2).toLocaleString('sk-SK')} m² · ` : ''}${r.kind ? r.kind.toLowerCase() : ''} · zmeniť na mape`; }
       if (out) out.textContent = `Parcela ${r.no}, k. ú. ${r.area}${r.m2 ? `, ${Number(r.m2).toLocaleString('sk-SK')} m²` : ''}${r.kind ? `, ${r.kind.toLowerCase()}` : ''}. Doplnené do správy.`;

@@ -13,7 +13,9 @@ const preview = document.getElementById('askPreview');
 function text(): string {
   const svc = form?.querySelector<HTMLInputElement>('input[name="svc"]:checked')?.value ?? 'vytýčenie stavby';
   const where = place?.value.trim();
-  return `Dobrý deň, potrebujem ${svc}${where ? `, ${where}` : ''}. Prosím o cenu a termín.`;
+  // #75: a plot picked on the map travels as a cadastral map link, so the surveyor sees the exact spot
+  const pos = place?.dataset.pos;
+  return `Dobrý deň, potrebujem ${svc}${where ? `, ${where}` : ''}. Prosím o cenu a termín.${pos ? ` Mapa: https://zbgis.skgeodesy.sk/mapka/sk/kataster?pos=${pos},19` : ''}`;
 }
 
 function update(): void {
@@ -23,7 +25,7 @@ function update(): void {
   preview.textContent = `Správa: ${body}`;
 }
 
-form?.addEventListener('input', update);
+form?.addEventListener('input', (e) => { if (e.isTrusted && e.target === place && place) delete place.dataset.pos; update(); });
 form?.addEventListener('submit', (e) => e.preventDefault());
 update();
 
