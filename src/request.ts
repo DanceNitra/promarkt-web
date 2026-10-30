@@ -22,7 +22,12 @@ function update(): void {
   if (!send || !preview) return;
   const body = text();
   send.href = `sms:${NUMBER}?&body=${encodeURIComponent(body)}`;
-  preview.textContent = `Správa: ${body}`;
+  // #87: the preview looks like the SMS it becomes, and the long map link reads as what it is
+  preview.innerHTML = '';
+  const who = document.createElement('span'); who.className = 'bubble__to'; who.textContent = 'SMS pre: Geodet · 0905 292 511';
+  const msg = document.createElement('span'); msg.className = 'bubble'; msg.textContent = body.replace(/ Mapa: https:\/\/\S+/, '');
+  if (/ Mapa: https:/.test(body)) { const m = document.createElement('span'); m.className = 'bubble__link'; m.textContent = 'odkaz na parcelu v mape katastra'; msg.append(' ', m); }
+  preview.append(who, msg);
 }
 
 form?.addEventListener('input', (e) => { if (e.isTrusted && e.target === place && place) delete place.dataset.pos; update(); });

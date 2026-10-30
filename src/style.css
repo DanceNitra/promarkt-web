@@ -648,3 +648,8 @@ html.is-static #film { display: none; }
 .mapbox__bar .mapbox__ok { background: var(--orange); color: var(--ink); border-color: var(--orange); font: 700 14px var(--display); padding: 9px 12px; }
 .mapbox__ok[hidden] { display: none; }
 @media (max-width: 860px) { .mapbox__bar { flex-wrap: wrap; } .mapbox__acts { width: 100%; } .mapbox__acts button { flex: 1; } }
+/* #87 the preview is a message bubble */
+#askPreview { display: grid; gap: 6px; justify-items: end; margin-top: 14px; }
+.bubble__to { font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.bubble { max-width: 92%; background: #2f7cf6; color: #fff; padding: 10px 14px; border-radius: 18px 18px 4px 18px; font-size: 15px; line-height: 1.4; }
+.bubble__link { text-decoration: underline; text-underline-offset: 2px; }
