@@ -23,6 +23,8 @@ function parse(json: string): Parcel | null {
 }
 
 let opened = false;
+let ready: () => void = () => {};
+const mapReady = new Promise<void>((ok) => { ready = ok; });
 btn?.addEventListener('click', async () => {
   if (!box) return;
   const show = box.hidden;
@@ -96,6 +98,7 @@ btn?.addEventListener('click', async () => {
   q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); find(); } });
   const ok = document.getElementById('mapOk') as HTMLButtonElement | null;
   ok?.addEventListener('click', () => { ok.hidden = true; btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: 'smooth' }); });
+  ready();
   map.on('locationfound', (e: L.LocationEvent) => { map.setView(e.latlng, 18); pick(e); });
   map.on('locationerror', () => { if (out) out.textContent = 'Polohu sa nepodarilo zistiť. Nájdite pozemok vyhľadaním alebo na mape.'; });
   document.getElementById('mapMe')?.addEventListener('click', () => { if (out) out.textContent = 'Zisťujem polohu telefónu…'; map.locate({ enableHighAccuracy: true, timeout: 15000 }); });
@@ -103,3 +106,15 @@ btn?.addEventListener('click', async () => {
 
 // #71: links from the hero and the service pages arrive with ?map=1 and find the map already open
 if (new URLSearchParams(location.search).get('map') === '1') btn?.click();
+
+// #93: on a phone, standing on the plot is the fastest start: open the map and locate in one tap
+const here = document.getElementById('mapHere');
+if (here && matchMedia('(pointer: coarse)').matches && 'geolocation' in navigator) {
+  here.hidden = false;
+  here.addEventListener('click', async () => {
+    if (box?.hidden) btn?.click();
+    await mapReady;
+    document.getElementById('mapMe')?.click();
+    box?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
+}

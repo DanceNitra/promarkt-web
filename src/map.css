@@ -36,3 +36,7 @@
 @media (max-width: 860px) { .mapbox__bar { flex-wrap: wrap; } .mapbox__acts { width: 100%; } .mapbox__acts button { flex: 1; } }
 /* #90 on the service pages the map comes first too, and the form under it */
 .mapbox + .mini, .mapbtn + .mapbox[hidden] + .mini { margin-top: 14px; }
+/* #93 locate from the plot itself */
+.maphere { display: block; width: 100%; margin-top: 6px; padding: 11px 14px; border: 1.5px solid var(--orange); background: var(--ink); color: var(--paper); font: 600 14px var(--display); text-align: left; cursor: pointer; }
+.maphere::before { content: '◎'; margin-right: 8px; color: var(--orange); }
+.maphere[hidden] { display: none; }
