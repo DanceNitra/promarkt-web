@@ -272,3 +272,10 @@ html.is-static #film { display: none; }
   .block, .faq, .foot { background: #fff !important; color: #000 !important; padding: 0 0 12mm; }
   .narrative { height: auto !important; }
 }
+
+/* ---------- #18: closing call to action ---------- */
+.closer { position: relative; z-index: 3; background: var(--night); color: var(--paper); text-align: center; padding: 14vh clamp(16px, 6vw, 90px); border-top: 3px solid var(--stake); }
+.closer h2 { font-size: clamp(32px, 5vw, 76px); font-weight: 800; font-stretch: 112%; line-height: .98; margin: 0 0 28px; text-wrap: balance; }
+.closer p { margin: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.closer .btn--ghost { margin-left: 0; display: inline-block; }
+@media (max-width: 860px) { .closer .btn { display: inline-block; } .closer { padding-bottom: calc(14vh + 56px); } }
