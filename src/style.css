@@ -256,3 +256,7 @@ html.is-static #film { display: none; }
 /* ---------- #9: copy the number ---------- */
 .copy { font: inherit; font-weight: 700; background: var(--ink); color: var(--paper); border: 0; padding: 8px 12px; cursor: pointer; margin-right: 10px; }
 .copy:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+/* ---------- #10: rise-in ---------- */
+.rise { opacity: 0; transform: translateY(18px); transition: opacity .5s ease var(--d, 0ms), transform .5s ease var(--d, 0ms); }
+.rise.is-in { opacity: 1; transform: none; }

@@ -30,3 +30,14 @@ copy?.addEventListener('click', async () => {
   catch { copy.textContent = '0905 292 511'; }
   setTimeout(() => { copy.textContent = 'Skopírovať číslo'; }, 2200);
 });
+
+// #10: gallery tiles and questions rise in once, when they come into view
+const io = 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches
+  ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io?.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' })
+  : null;
+document.querySelectorAll('.gallery__grid li, .faq details').forEach((el, i) => {
+  if (!io) return;
+  (el as HTMLElement).style.setProperty('--d', `${(i % 3) * 70}ms`);
+  el.classList.add('rise');
+  io.observe(el);
+});
