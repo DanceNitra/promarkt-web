@@ -78,7 +78,7 @@ const fixedT = params.get('t');
 const portrait = window.matchMedia('(max-aspect-ratio: 3/4)').matches;
 const narrow = window.matchMedia('(max-width: 860px)').matches;
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string; downlink?: number } }).connection;
 let staticMode = reduced || params.get('static') === '1' || Boolean(conn?.saveData) || /(^|-)(2g|3g)$/.test(conn?.effectiveType || '');
 
 const cards = CARDS.map(([id], i) => prepareCard($(id), i + 1, narrow));
@@ -171,7 +171,8 @@ else {
   // Smooth scrubbing: a seek into a part of the file that is not downloaded yet waits for the network, and that wait
   // is the stutter people saw on the live site (17 to 26 pictures a second there, about 100 from a local file).
   // So the whole film is fetched once in the background and the player switches to the local copy.
-  fetch(filmUrl).then((r) => r.ok ? r.blob() : Promise.reject(r.status)).then((b) => {
+  // On a slow link the second download would halve the speed of the stream that the viewer is waiting for.
+  if ((conn?.downlink ?? 99) >= 8) fetch(filmUrl).then((r) => r.ok ? r.blob() : Promise.reject(r.status)).then((b) => {
     const at = video.currentTime;
     video.src = URL.createObjectURL(b);
     video.addEventListener('loadedmetadata', () => { video.currentTime = at; }, { once: true });
