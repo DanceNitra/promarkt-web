@@ -22,3 +22,11 @@ function update(): void {
 form?.addEventListener('input', update);
 form?.addEventListener('submit', (e) => e.preventDefault());
 update();
+
+// #9: on a desktop there is nothing to dial, so the number can be copied
+const copy = document.getElementById('copyNum') as HTMLButtonElement | null;
+copy?.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText('0905 292 511'); copy.textContent = 'Skopírované'; }
+  catch { copy.textContent = '0905 292 511'; }
+  setTimeout(() => { copy.textContent = 'Skopírovať číslo'; }, 2200);
+});

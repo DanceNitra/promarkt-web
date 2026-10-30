@@ -252,3 +252,7 @@ html.is-static #film { display: none; }
 .faq details { border-bottom: 1px solid rgba(44,44,46,.35); padding: 14px 0; }
 .faq summary { cursor: pointer; font-weight: 700; font-size: 18px; }
 .faq details p { margin: 10px 0 0; color: var(--muted); line-height: 1.55; max-width: 60ch; }
+
+/* ---------- #9: copy the number ---------- */
+.copy { font: inherit; font-weight: 700; background: var(--ink); color: var(--paper); border: 0; padding: 8px 12px; cursor: pointer; margin-right: 10px; }
+.copy:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
