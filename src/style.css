@@ -637,3 +637,8 @@ html.is-static #film { display: none; }
 /* #96 keyboard focus on everything added since #69 */
 .where__track button:focus-visible, .where__out .btn:focus-visible, .qbox .btn:focus-visible, .menu__big:focus-visible, .menu__svcs a:focus-visible, .nav__map:focus-visible, .callbar a:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
 .where__track button:focus-visible { outline-color: var(--ink); }
+/* #98 the stage answer also opens the map, with the service chosen */
+.where__acts { display: grid; gap: 10px; justify-items: center; flex: none; }
+.where__map { color: var(--paper); font-size: 14px; text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 4px; }
+.where__map::before { content: ''; display: inline-block; width: 9px; height: 9px; margin-right: 7px; border: 2px solid var(--stake); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+@media (max-width: 860px) { .where__acts { justify-items: stretch; text-align: center; } }

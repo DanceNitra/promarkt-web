@@ -218,6 +218,7 @@ stageBtns.forEach((b) => b.addEventListener('click', () => {
   document.getElementById('stageH')!.textContent = b.dataset.h ?? '';
   document.getElementById('stageP')!.textContent = b.dataset.p ?? '';
   (document.getElementById('stageGo') as HTMLAnchorElement).href = `./?s=${encodeURIComponent(b.dataset.svc ?? '')}#ask`;
+  (document.getElementById('stageMap') as HTMLAnchorElement).href = `./?s=${encodeURIComponent(b.dataset.svc ?? '')}&map=1#ask`; // #98
 }));
 document.getElementById('stageGo')?.addEventListener('click', (e) => {
   const svc = new URL((e.currentTarget as HTMLAnchorElement).href).searchParams.get('s');
