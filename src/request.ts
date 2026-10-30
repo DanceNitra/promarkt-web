@@ -1,3 +1,4 @@
+import qrcode from 'qrcode-generator';
 // Contact request: the visitor picks a service and a place, and the SMS to the surveyor is prefilled.
 // No server involved: the button opens the phone's own messages app.
 const NUMBER = '+421905292511';
@@ -141,3 +142,26 @@ document.querySelectorAll<HTMLButtonElement>('#galGrid button').forEach((b) => {
     if (lbWant) { lbWant.href = `./?s=${encodeURIComponent(svc)}#ask`; lbWant.textContent = i <= 3 ? 'Chcem vytýčiť stavbu' : 'Chcem geometrický plán'; }
   });
 });
+
+// #58: a computer cannot send an SMS, so there the SMS buttons show a QR code that opens the message on the phone
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const dlg = document.createElement('dialog');
+  dlg.className = 'qrdlg';
+  dlg.innerHTML = '<p class="qrdlg__h">Pošlite SMS z mobilu</p><div class="qrdlg__qr"></div><p class="qrdlg__t">Namierte fotoaparát telefónu na kód. Otvorí sa správa pre <b>0905 292 511</b> s týmto textom:</p><p class="qrdlg__m"></p><div class="qrdlg__bar"><a class="btn" href="tel:+421905292511">Radšej zavolať</a><button type="button" class="act">Zavrieť</button></div>';
+  document.body.appendChild(dlg);
+  dlg.querySelector('button')!.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  document.addEventListener('click', (e) => {
+    const a = (e.target as HTMLElement).closest('a[href^="sms:"]') as HTMLAnchorElement | null;
+    if (!a) return;
+    e.preventDefault();
+    const href = a.getAttribute('href') || 'sms:+421905292511';
+    const qr = qrcode(0, 'M');
+    qr.addData(href);
+    qr.make();
+    dlg.querySelector('.qrdlg__qr')!.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
+    const body = decodeURIComponent((href.split('body=')[1] || ''));
+    dlg.querySelector('.qrdlg__m')!.textContent = body || 'Dobrý deň, prosím o cenu a termín.';
+    dlg.showModal();
+  });
+}

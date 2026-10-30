@@ -502,3 +502,13 @@ html.is-static #film { display: none; }
 .act { font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); background: transparent; border: 1.5px solid var(--ink); padding: 8px 12px; cursor: pointer; text-decoration: none; }
 .act:hover { background: var(--ink); color: var(--paper); }
 .act[hidden] { display: none; }
+
+/* ---------- #58: QR for SMS on a computer ---------- */
+.qrdlg { border: 0; padding: 28px; width: min(440px, 92vw); background: var(--paper); color: var(--ink); box-shadow: 14px 14px 0 var(--orange); }
+.qrdlg::backdrop { background: rgba(23,24,26,.8); }
+.qrdlg__h { margin: 0 0 16px; font-size: 26px; font-weight: 800; font-stretch: 108%; }
+.qrdlg__qr { width: 220px; height: 220px; background: #fff; padding: 6px; border: 1.5px solid var(--ink); }
+.qrdlg__qr svg { width: 100%; height: 100%; display: block; }
+.qrdlg__t { font-size: 15px; line-height: 1.5; margin: 16px 0 8px; }
+.qrdlg__m { font-family: var(--mono); font-size: 13px; background: #fff; border-left: 3px solid var(--stake); padding: 10px 12px; margin: 0 0 18px; }
+.qrdlg__bar { display: flex; gap: 10px; align-items: center; }
