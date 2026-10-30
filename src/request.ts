@@ -84,3 +84,10 @@ if (chap) {
   };
   setInterval(tick, 250);
 }
+
+// #27: where the phone offers sharing, a visitor can pass the surveyor on to someone who needs one
+const share = document.getElementById('shareSite') as HTMLButtonElement | null;
+if (share && typeof navigator.share === 'function') {
+  share.hidden = false;
+  share.addEventListener('click', () => { navigator.share({ title: 'Geodet Nitra, PROMARKT NITRA SK', text: 'Geodet Rastislav Drahoš, Nitra a okolie. 0905 292 511', url: location.origin + location.pathname }).catch(() => {}); });
+}
