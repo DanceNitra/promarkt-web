@@ -46,7 +46,7 @@ ul li::before{content:'';position:absolute;left:0;top:20px;width:8px;height:8px;
 
 /* #51: other services as photo cards */
 nav.more{display:block}
-.svcs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:0 0 20px}
+.svcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:0 0 20px}
 .svc{display:block;text-decoration:none;background:#f3f1ea;color:#2c2c2e}
 .svc img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
 .svc b{display:block;padding:12px 14px;font-size:18px}
