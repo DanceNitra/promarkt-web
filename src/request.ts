@@ -74,13 +74,30 @@ try {
   if (r) { r.checked = true; update(); }
 } catch { /* ignore */ }
 
-// #23: the name of the chapter on screen, taken from the visible card
+// #23 + #35: the chapter on screen is named, and a call to action offers exactly that service.
+// The last chapter seen stays active between cards, so the offer never disappears mid-film.
 const chap = document.getElementById('chap');
+const fcta = document.getElementById('filmCta') as HTMLAnchorElement | null;
 if (chap) {
-  const names: [string, string][] = [['c0', '00 Hranica pozemku'], ['c1', '01 Vytýčenie stavby'], ['c2', '02 Základy'], ['c3', '03 Geometrický plán']];
+  const S = (v: string) => `./?s=${encodeURIComponent(v)}#ask`;
+  const names: [string, string, string, string][] = [
+    ['c0', '00 Hranica pozemku', 'Vytýčiť moju hranicu', S('vytýčenie hranice pozemku')],
+    ['c1', '01 Vytýčenie stavby', 'Vytýčiť môj dom', S('vytýčenie stavby')],
+    ['c2', '02 Základy', 'Vytýčiť moje základy', S('vytýčenie stavby')],
+    ['c3', '03 Geometrický plán', 'Objednať geometrický plán', S('geometrický plán')],
+  ];
+  let last = -1;
+  const narrative = document.getElementById('narrative');
   const tick = () => {
-    const on = names.find(([id]) => { const c = document.getElementById(id); return c && getComputedStyle(c).visibility !== 'hidden' && Number(getComputedStyle(c).opacity) > 0.5; });
-    chap.textContent = on ? on[1] : '';
+    const i = names.findIndex(([id]) => { const c = document.getElementById(id); return !!c && getComputedStyle(c).visibility !== 'hidden' && Number(getComputedStyle(c).opacity) > 0.5; });
+    if (i >= 0) last = i;
+    const inFilm = !!narrative && window.scrollY < narrative.offsetHeight - window.innerHeight * 1.05 && window.scrollY > window.innerHeight * 0.15;
+    chap.textContent = i >= 0 ? names[i][1] : '';
+    if (fcta) {
+      const on = inFilm && last >= 0;
+      fcta.classList.toggle('is-on', on);
+      if (on) { fcta.querySelector('b')!.textContent = names[last][2]; fcta.href = names[last][3]; fcta.querySelector('span')!.textContent = names[last][1]; }
+    }
   };
   setInterval(tick, 250);
 }

@@ -329,3 +329,12 @@ html.is-static #film { display: none; }
   .quick b { font-size: 15px; }
   .hero__note { margin-top: 12px; }
 }
+
+/* ---------- #35: during the film, a button offers the service on screen ---------- */
+.fcta { position: absolute; right: clamp(16px, 5vw, 80px); bottom: 40px; z-index: 6; display: grid; gap: 2px; text-decoration: none; background: var(--orange); color: var(--ink); padding: 12px 52px 12px 18px; box-shadow: 8px 8px 0 rgba(23,24,26,.5); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .3s, transform .3s; }
+.fcta::after { content: '→'; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-weight: 800; font-size: 20px; }
+.fcta.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.fcta span { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.fcta b { font-size: 19px; font-stretch: 108%; }
+.chap { display: none; }
+@media (max-width: 860px) { .fcta { left: 16px; right: 16px; bottom: calc(56px + 14px); } }
