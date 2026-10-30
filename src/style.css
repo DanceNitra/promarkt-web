@@ -562,3 +562,8 @@ html.is-static #film { display: none; }
 .mapbtn::after { content: '→'; margin-left: auto; font-weight: 800; font-size: 18px; }
 .mapbtn[aria-expanded="true"]::after { content: '×'; }
 .mapbox + .ask__row, .mapbtn + .mapbox[hidden] + .ask__row { margin-top: 14px; }
+/* #74 the picked parcel sits on the button */
+.mapbtn.is-set { border-color: var(--stake); background: #fff6f5; }
+.mapbtn.is-set i { background: var(--stake); }
+.mapbtn.is-set::after { content: '✓'; color: var(--stake); }
+.mapbtn.is-set[aria-expanded="true"]::after { content: '×'; color: inherit; }
