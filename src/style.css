@@ -301,3 +301,16 @@ html.is-static #film { display: none; }
 .ask__help { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 15px; }
 .ask__help button { font: inherit; font-size: 14px; background: none; border: 0; border-bottom: 2px solid var(--orange); padding: 2px 0; cursor: pointer; color: var(--ink); font-weight: 600; }
 .ask__help button:hover { background: var(--orange); }
+
+/* ---------- #33: the first screen asks what the visitor needs ---------- */
+.quick { position: fixed; right: clamp(16px, 5vw, 80px); top: 50%; transform: translateY(-38%); width: 21rem; background: var(--paper); color: var(--ink); border: 1.5px solid var(--ink); box-shadow: 10px 10px 0 rgba(23,24,26,.55); }
+.quick__h { margin: 0; padding: 14px 18px; font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--orange-ink); border-bottom: 1.5px solid var(--ink); }
+.quick a { display: grid; gap: 2px; padding: 14px 18px; text-decoration: none; border-bottom: 1px solid rgba(44,44,46,.3); position: relative; }
+.quick a::after { content: '→'; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-weight: 800; transition: transform .2s; }
+.quick a:hover { background: var(--orange); }
+.quick a:hover::after { transform: translate(4px, -50%); }
+.quick b { font-size: 19px; font-stretch: 108%; }
+.quick span { font-size: 13px; color: var(--muted); }
+.quick a:hover span { color: var(--ink); }
+.quick__f { margin: 0; padding: 10px 18px; font-family: var(--mono); font-size: 11px; background: var(--ink); color: var(--paper); }
+@media (max-width: 1100px) { .quick { display: none; } }
