@@ -36,3 +36,10 @@ ul li::before{content:'';position:absolute;left:0;top:20px;width:8px;height:8px;
 .btn{font-size:17px;padding:15px 22px}
 .pics figcaption{padding-top:18px}
 .pics{gap:28px}
+
+/* #49: the service pages take the request on the spot */
+.mini{display:grid;grid-template-columns:1fr auto;gap:10px;margin:0 0 28px;padding:18px;background:#f3f1ea;color:#2c2c2e;box-shadow:10px 10px 0 #dc802d}
+.mini label{grid-column:1/-1;display:grid;gap:6px;font:12px Plex,monospace;letter-spacing:.1em;text-transform:uppercase;color:#5e5c57}
+.mini input{font:16px Archivo,system-ui,sans-serif;padding:12px;border:1.5px solid #2c2c2e;border-radius:0;color:#2c2c2e}
+.mini .btn.ghost{color:#2c2c2e;border-color:#2c2c2e}
+@media(max-width:860px){.mini{grid-template-columns:1fr}}
