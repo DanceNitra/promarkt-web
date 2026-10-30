@@ -8,7 +8,7 @@
 a{color:inherit}header{display:flex;align-items:center;gap:16px;padding:14px clamp(16px,5vw,64px);border-bottom:1px solid rgba(243,241,234,.18)}
 header .home{font-weight:800;text-decoration:none;letter-spacing:.02em}header .call{margin-left:auto;background:#dc802d;color:#2c2c2e;padding:9px 14px;font-weight:700;text-decoration:none}
 main{max-width:72rem;margin:0 auto;padding:9vh clamp(16px,5vw,32px) 10vh}.eyebrow{font:12px/1 Plex,ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:#dc802d;margin:0 0 14px}
-h1{font-size:clamp(34px,6vw,64px);line-height:1;font-weight:800;margin:0 0 18px;text-wrap:balance}.lead{font-size:clamp(17px,2vw,21px);line-height:1.5;margin:0 0 28px}
+h1,.h1{font-size:clamp(34px,6vw,64px);line-height:1;font-weight:800;margin:0 0 18px;text-wrap:balance}.lead{font-size:clamp(17px,2vw,21px);line-height:1.5;margin:0 0 28px}
 ul{padding-left:20px;line-height:1.7;font-size:17px;margin:0 0 32px}.cta{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 40px}
 .btn{display:inline-block;background:#dc802d;color:#2c2c2e;font-weight:700;padding:13px 18px;text-decoration:none}.btn.ghost{background:none;color:#f3f1ea;border:1.5px solid #f3f1ea}
 nav.more{border-top:1px solid rgba(243,241,234,.18);padding-top:20px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px}
@@ -26,7 +26,7 @@ header{position:sticky;top:0;z-index:5;background:#17181a}
 @media(max-width:860px){header .call{display:none}.bar{display:flex;position:fixed;inset:auto 0 0 0;height:56px;z-index:6}.bar a{flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;text-decoration:none;background:#dc802d;color:#2c2c2e}.bar a+a{background:#2c2c2e;color:#f3f1ea}footer{padding-bottom:84px}}
 
 /* #46: the service pages speak the same visual language as the film page */
-h1{font-stretch:112%;font-size:clamp(40px,5vw,76px);line-height:.98}
+h1,.h1{font-stretch:112%;font-size:clamp(40px,5vw,76px);line-height:.98}
 .lead{font-stretch:100%}
 ul{list-style:none;padding:0;border-top:1.5px solid rgba(243,241,234,.3)}
 ul li{padding:12px 0 12px 22px;border-bottom:1px solid rgba(243,241,234,.15);position:relative}
@@ -77,3 +77,7 @@ header .hmap::before{content:'';display:inline-block;width:9px;height:9px;margin
 header .hmap+.call{margin-left:0}
 header .hmap:focus-visible{outline:3px solid #dc802d;outline-offset:2px}
 @media (max-width:520px){header .hmap{font-size:13px;padding:7px 9px}header .call{font-size:13px;padding:8px 10px}}
+
+/* #104 */
+h1.eyebrow{font:12px/1 Plex,ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:#dc802d;margin:0 0 14px}
+.steps ol{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px}.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:baseline;font-size:17px;line-height:1.45}.steps li::before{content:counter(s);font:700 20px Archivo,system-ui;color:#dc802d}

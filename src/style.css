@@ -47,7 +47,7 @@ a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
 /* ---------- Hero: no box, two lines, over the dark soil left of the stake ---------- */
 .hero { position: absolute; left: clamp(16px, 6vw, 90px); bottom: 14vh; max-width: 34rem; z-index: 3; }
-.hero h1 { font-size: clamp(40px, 5.6vw, 88px); line-height: .96; font-weight: 800; font-stretch: 112%; margin: 0 0 16px; text-wrap: balance; text-shadow: 0 2px 28px rgba(0, 0, 0, .5); }
+.hero h1, .hero .h1 { font-size: clamp(40px, 5.6vw, 88px); line-height: .96; font-weight: 800; font-stretch: 112%; margin: 0 0 16px; text-wrap: balance; text-shadow: 0 2px 28px rgba(0, 0, 0, .5); }
 .hero__sub { font-size: clamp(16px, 1.3vw, 20px); margin: 0 0 22px; text-shadow: 0 1px 14px rgba(0, 0, 0, .7); }
 .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); margin: 0 0 14px; }
 .eyebrow--ink { color: var(--orange-ink); }
@@ -318,7 +318,7 @@ html.is-static #film { display: none; }
 /* ---------- #34: on a phone the hero is a bottom sheet, readable over any frame, with the three situations as chips ---------- */
 @media (max-width: 860px) {
   .hero { left: 0; right: 0; bottom: 56px; max-width: none; padding: 120px 16px 16px; background: linear-gradient(to top, rgba(23,24,26,.97) 0, rgba(23,24,26,.92) 58%, rgba(23,24,26,0) 100%); }
-  .hero h1 { font-size: 40px; margin-bottom: 10px; }
+  .hero h1, .hero .h1 { font-size: 40px; margin-bottom: 10px; }
   .hero__sub { font-size: 15px; margin-bottom: 14px; }
   .hero .btn--ghost, .cue { display: none !important; }
   .hero .eyebrow { background: none; padding: 0; }
@@ -394,7 +394,7 @@ html.is-static #film { display: none; }
 /* ---------- #41: the headline reads in two lines over a soft scrim, one call button ---------- */
 @media (min-width: 861px) {
   .hero { max-width: 40rem; bottom: 12vh; }
-  .hero h1 { font-size: clamp(42px, 4.1vw, 70px); }
+  .hero h1, .hero .h1 { font-size: clamp(42px, 4.1vw, 70px); }
   .hero .btn--ghost { display: none; }
   .stage::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(23,24,26,.62) 0%, rgba(23,24,26,.25) 38%, rgba(23,24,26,0) 60%); opacity: var(--scrim, 1); }
 }
@@ -629,7 +629,7 @@ html.is-static #film { display: none; }
   .hero .quick b { font-size: 15px; line-height: 1.15; }
   .hero .quick .quick__map { font-size: 13px; font-weight: 700; line-height: 1.2; align-items: center; grid-template-columns: auto 1fr; border-color: var(--stake); }
   .hero .hero__note { margin: 0 0 10px; }
-  .hero h1 { font-size: 36px; }
+  .hero h1, .hero .h1 { font-size: 36px; }
 }
 @media (max-width: 860px) { .hero .quick span { color: rgba(243,241,234,.78); opacity: 1; } .hero .quick a:first-of-type span { color: rgba(44,44,46,.8); } }
 /* #94 the bottom bar sends the prepared SMS */
@@ -662,3 +662,7 @@ html.is-gap:not(.is-static) .still { display: block; }
 .leaddlg form.is-done .lead__send, .leaddlg form.is-done label, .leaddlg form.is-done .lead__captcha { display: none; }
 @media (max-width: 520px) { .lead { grid-template-columns: 1fr; } }
 .leaddlg input, .leaddlg textarea { background: #fff; color: var(--ink); }
+
+/* #104 the H1 carries the words people search for; the slogan stays the big line */
+.hero h1.eyebrow { font-size: 12px; line-height: inherit; font-weight: 400; font-stretch: normal; margin: 0 0 14px; }
+@media (max-width: 860px) { .hero h1.eyebrow { font-size: 10.5px; } }
