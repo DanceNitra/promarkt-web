@@ -519,3 +519,12 @@ html.is-static #film { display: none; }
 /* ---------- #66: swipe hint in the lightbox on touch screens ---------- */
 .lb__hint { display: none; }
 @media (hover: none) { .lb__hint { display: block; font-family: var(--mono); font-size: 11px !important; letter-spacing: .1em; text-transform: uppercase; color: var(--orange); } }
+
+/* ---------- #67: every new control shows keyboard focus, and motion respects the system setting ---------- */
+.quick a:focus-visible, .act:focus-visible, .rail a:focus-visible, .fcta:focus-visible, .menu a:focus-visible, .nav__write:focus-visible, .nav__menu:focus-visible, .lb__want:focus-visible, .ask__send:focus-visible, .foot a:focus-visible, .faq summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.ask__field input:focus-visible { outline: 3px solid var(--orange); outline-offset: 0; border-color: var(--ink); }
+@media (prefers-reduced-motion: reduce) {
+  .rise { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .fcta, .rail, .quick a::after, .gallery__grid img { transition: none !important; }
+  .gallery__grid button:hover img { transform: none; }
+}
