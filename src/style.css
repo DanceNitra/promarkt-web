@@ -226,3 +226,7 @@ html.is-static #film { display: none; }
 /* ---------- #4: save the contact ---------- */
 .vcf { display: inline-block; font-weight: 700; border-bottom: 2px solid var(--orange); text-decoration: none; padding-bottom: 2px; }
 .vcf:hover { background: var(--orange); }
+
+/* ---------- #5: what to prepare ---------- */
+.prep summary { cursor: pointer; font-weight: 700; }
+.prep ul { margin: 10px 0 0; padding-left: 20px; line-height: 1.6; font-size: 15px; }
