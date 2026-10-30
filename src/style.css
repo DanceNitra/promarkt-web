@@ -282,3 +282,7 @@ html.is-static #film { display: none; }
 
 /* ---------- #19: the eyebrow fits a phone ---------- */
 @media (max-width: 860px) { .hero .eyebrow { font-size: 10.5px; letter-spacing: .1em; } .cue { font-size: 11px; } }
+
+/* ---------- #21: service links in the footer ---------- */
+.foot__links { font-weight: 700; margin-bottom: 14px !important; }
+.foot__links a { color: var(--paper); text-underline-offset: 3px; }
