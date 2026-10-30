@@ -61,6 +61,22 @@ form?.addEventListener('input', () => {
 });
 
 // #16: arrow keys move through the gallery while a picture is open
+// #66: the same step is reached by a swipe on a phone
+function lbStep(dir: 1 | -1): void {
+  const dlg = document.getElementById('lightbox') as HTMLDialogElement | null;
+  if (!dlg?.open) return;
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('#galGrid button')];
+  const cur = btns.findIndex((b) => b.querySelector('img')!.src.replace('.jpg', '_l.jpg') === (document.getElementById('lbImg') as HTMLImageElement).src);
+  const next = btns[(cur + dir + btns.length) % btns.length];
+  dlg.close();
+  next.click();
+}
+let sx = 0;
+document.getElementById('lightbox')?.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+document.getElementById('lightbox')?.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].clientX - sx;
+  if (Math.abs(dx) > 50) lbStep(dx < 0 ? 1 : -1);
+}, { passive: true });
 document.addEventListener('keydown', (e) => {
   const dlg = document.getElementById('lightbox') as HTMLDialogElement | null;
   if (!dlg?.open || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
