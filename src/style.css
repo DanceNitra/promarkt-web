@@ -477,3 +477,10 @@ html.is-static #film { display: none; }
 .lightbox__bar { align-items: center; }
 .lb__want { margin-right: auto; background: var(--orange); color: var(--ink); text-decoration: none; font-weight: 800; padding: 10px 16px; }
 .lightbox__bar button:first-of-type { background: transparent; color: var(--paper); border: 1px solid rgba(243,241,234,.4); }
+
+/* ---------- #55: on a phone the film button is dark, so it does not merge with the orange call bar ---------- */
+@media (max-width: 860px) {
+  .fcta { background: var(--night); color: var(--paper); border: 1.5px solid var(--orange); box-shadow: none; padding: 10px 44px 10px 14px; }
+  .fcta span { color: var(--orange); }
+  .fcta b { font-size: 17px; }
+}
