@@ -57,3 +57,6 @@ nav.more{display:block}
 /* #62: a short clip from the film leads each service page */
 .clip video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#2c2c2e;box-shadow:10px 10px 0 #dc802d}
 .clip+figure img{box-shadow:10px 10px 0 #f3f1ea}
+/* #71 */
+.mapln { display: inline-flex; align-items: center; gap: 10px; margin: 4px 0 14px; font-weight: 600; color: inherit; text-decoration: underline; text-decoration-color: #dc802d; text-underline-offset: 4px; }
+.mapln::before { content: ''; width: 12px; height: 12px; border: 2px solid #cd191e; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }

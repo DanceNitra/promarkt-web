@@ -51,3 +51,6 @@ btn?.addEventListener('click', async () => {
   });
   document.getElementById('mapMe')?.addEventListener('click', () => map.locate({ setView: true, maxZoom: 18 }));
 });
+
+// #71: links from the hero and the service pages arrive with ?map=1 and find the map already open
+if (new URLSearchParams(location.search).get('map') === '1') btn?.click();

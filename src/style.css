@@ -547,3 +547,6 @@ html.is-static #film { display: none; }
 .mapbox__bar button { flex: none; border: 1px solid var(--paper); background: transparent; color: var(--paper); font: 500 12px var(--mono); padding: 7px 10px; cursor: pointer; }
 .leaflet-container { font: 12px var(--display); }
 .osm-muted { filter: grayscale(1) contrast(.85) brightness(1.08); }
+/* #71 the map as a fourth way in from the hero */
+.quick__map { display: flex !important; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; }
+.quick__map i { width: 14px; height: 14px; flex: none; border: 2px solid var(--stake); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
