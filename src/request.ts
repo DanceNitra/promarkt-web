@@ -73,3 +73,15 @@ try {
   const r = wanted && form?.querySelector<HTMLInputElement>(`input[name="svc"][value="${CSS.escape(wanted)}"]`);
   if (r) { r.checked = true; update(); }
 } catch { /* ignore */ }
+
+// #23: the name of the chapter on screen, taken from the visible card
+const chap = document.getElementById('chap');
+if (chap) {
+  const names: [string, string][] = [['c0', '00 Hranica pozemku'], ['c1', '01 Vytýčenie stavby'], ['c2', '02 Základy'], ['c3', '03 Geometrický plán']];
+  const tick = () => {
+    const on = names.find(([id]) => { const c = document.getElementById(id); return c && getComputedStyle(c).visibility !== 'hidden' && Number(getComputedStyle(c).opacity) > 0.5; });
+    chap.textContent = on ? on[1] : '';
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}

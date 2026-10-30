@@ -286,3 +286,8 @@ html.is-static #film { display: none; }
 /* ---------- #21: service links in the footer ---------- */
 .foot__links { font-weight: 700; margin-bottom: 14px !important; }
 .foot__links a { color: var(--paper); text-underline-offset: 3px; }
+
+/* ---------- #23: chapter label ---------- */
+.chap { position: absolute; right: clamp(16px, 6vw, 90px); bottom: 14px; z-index: 4; margin: 0; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange); text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+.chap:empty { display: none; }
+@media (max-width: 860px) { .chap { display: none; } }
