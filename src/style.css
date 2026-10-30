@@ -244,3 +244,11 @@ html.is-static #film { display: none; }
 .proof li:last-child { border-right: 0; }
 .proof b { display: block; font-size: clamp(22px, 2.4vw, 32px); font-stretch: 110%; line-height: 1.05; }
 @media (max-width: 860px) { .proof { grid-template-columns: 1fr 1fr; } .proof li:nth-child(2) { border-right: 0; } .proof li:nth-child(-n+2) { border-bottom: 1px solid rgba(44,44,46,.35); } }
+
+/* ---------- #8: questions ---------- */
+.faq { position: relative; z-index: 3; background: var(--paper); color: var(--ink); padding: 0 clamp(16px, 6vw, 90px) 12vh; }
+.faq__inner { max-width: 980px; margin: 0 auto; border-top: 1.5px solid var(--ink); padding-top: 8vh; }
+.faq h2 { font-size: clamp(26px, 2.8vw, 40px); font-stretch: 108%; margin: 0 0 24px; text-wrap: balance; }
+.faq details { border-bottom: 1px solid rgba(44,44,46,.35); padding: 14px 0; }
+.faq summary { cursor: pointer; font-weight: 700; font-size: 18px; }
+.faq details p { margin: 10px 0 0; color: var(--muted); line-height: 1.55; max-width: 60ch; }
