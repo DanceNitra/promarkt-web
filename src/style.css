@@ -496,3 +496,9 @@ html.is-static #film { display: none; }
 .gallery__grid li:hover { outline: 2px solid var(--orange); }
 .faq { padding-top: 10vh; }
 .faq__inner { border-top: 0; padding-top: 0; }
+
+/* ---------- #57: three quiet, equal actions under the number ---------- */
+.acts { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.act { font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); background: transparent; border: 1.5px solid var(--ink); padding: 8px 12px; cursor: pointer; text-decoration: none; }
+.act:hover { background: var(--ink); color: var(--paper); }
+.act[hidden] { display: none; }
