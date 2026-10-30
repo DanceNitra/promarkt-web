@@ -119,13 +119,16 @@ if (chap) {
     anchors.forEach((el, i) => { if (el && el.getBoundingClientRect().top + window.scrollY <= y) last = i; });
     const card = names.findIndex(([id]) => { const c = document.getElementById(id); return !!c && getComputedStyle(c).visibility !== 'hidden' && Number(getComputedStyle(c).opacity) > 0.5; });
     if (card >= 0) last = card;
+    // #81: once the film has drawn parcel 000/2 on the plan, the button asks for the visitor's own parcel
+    const end = !!narrative && window.scrollY > (narrative.offsetHeight - window.innerHeight) * 0.9;
     const inFilm = !!narrative && window.scrollY < narrative.offsetHeight - window.innerHeight * 1.05 && window.scrollY > window.innerHeight * 0.15;
     rail.forEach((a, i) => a.classList.toggle('is-on', i === last));
     document.getElementById('rail')?.classList.toggle('is-on', inFilm);
     if (fcta) {
       const on = inFilm && last >= 0;
       fcta.classList.toggle('is-on', on);
-      if (on) { fcta.querySelector('b')!.textContent = names[last][2]; fcta.href = names[last][3]; fcta.querySelector('span')!.textContent = names[last][1]; }
+      if (on && end) { fcta.querySelector('b')!.textContent = 'Ukážte nám svoju parcelu'; fcta.href = './?s=geometrick%C3%BD%20pl%C3%A1n&map=1#ask'; fcta.querySelector('span')!.textContent = 'Mapa katastra'; }
+      else if (on) { fcta.querySelector('b')!.textContent = names[last][2]; fcta.href = names[last][3]; fcta.querySelector('span')!.textContent = names[last][1]; }
     }
   };
   setInterval(tick, 250);
@@ -209,5 +212,21 @@ document.getElementById('stageGo')?.addEventListener('click', (e) => {
   if (!r) return;
   e.preventDefault();
   r.checked = true; r.dispatchEvent(new Event('input', { bubbles: true }));
+  document.getElementById('ask')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// #81: links to this page's own form (?s=…, ?map=1, #ask) no longer reload the 14 MB film; the form is filled in place
+document.addEventListener('click', (e) => {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  const a = (e.target as HTMLElement).closest('a[href]') as HTMLAnchorElement | null;
+  if (!a || a.hash !== '#ask') return;
+  const u = new URL(a.href, location.href);
+  if (u.origin !== location.origin || u.pathname !== location.pathname) return;
+  e.preventDefault();
+  const svc = u.searchParams.get('s');
+  const r = svc ? document.querySelector<HTMLInputElement>(`input[name="svc"][value="${svc}"]`) : null;
+  if (r) { r.checked = true; r.dispatchEvent(new Event('input', { bubbles: true })); }
+  const mb = document.getElementById('mapBtn');
+  if (u.searchParams.get('map') === '1' && mb?.getAttribute('aria-expanded') !== 'true') mb?.click();
   document.getElementById('ask')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
