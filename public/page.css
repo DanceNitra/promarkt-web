@@ -34,3 +34,5 @@ ul li::before{content:'';position:absolute;left:0;top:20px;width:8px;height:8px;
 .pics img{box-shadow:10px 10px 0 #dc802d}
 .pics figure+figure img{box-shadow:10px 10px 0 #f3f1ea}
 .btn{font-size:17px;padding:15px 22px}
+.pics figcaption{padding-top:18px}
+.pics{gap:28px}
