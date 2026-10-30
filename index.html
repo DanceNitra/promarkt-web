@@ -147,7 +147,7 @@
           <div class="mapbox" id="mapBox" hidden>
             <div class="mapbox__find" role="search"><input id="mapQ" type="search" placeholder="Obec a ulica, napr. Lužianky, Hlavná" aria-label="Hľadať miesto na mape" /><button type="button" id="mapGo">Nájsť</button></div>
             <div class="mapbox__wrap"><div class="mapbox__map" id="map" role="application" aria-label="Katastrálna mapa"></div><div class="mapbox__base" role="group" aria-label="Podklad mapy"><button type="button" data-base="air" aria-pressed="true">Letecká snímka</button><button type="button" data-base="map" aria-pressed="false">Mapa</button></div></div>
-            <div class="mapbox__bar"><p id="mapOut" aria-live="polite">Priblížte sa a kliknite na svoj pozemok. Číslo parcely doplníme do správy.</p><button type="button" id="mapMe">Moja poloha</button></div>
+            <div class="mapbox__bar"><p id="mapOut" aria-live="polite">Priblížte sa a kliknite na svoj pozemok. Číslo parcely doplníme do správy.</p><span class="mapbox__acts"><button type="button" id="mapMe">Moja poloha</button><button type="button" class="mapbox__ok" id="mapOk" hidden>Áno, toto je môj pozemok</button></span></div>
           </div>
           <div class="ask__row">
             <label class="ask__field">Obec alebo parcela<input id="askPlace" name="place" type="text" autocomplete="off" placeholder="napr. Nitra, Chrenová" /></label>

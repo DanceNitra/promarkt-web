@@ -66,8 +66,8 @@ btn?.addEventListener('click', async () => {
       if (place) { place.dataset.pos = `${e.latlng.lat.toFixed(6)},${e.latlng.lng.toFixed(6)}`; place.value = `parcela ${r.no}, k. ú. ${r.area}`; place.dispatchEvent(new Event('input', { bubbles: true })); }
       // #74: the choice shows on the button itself, so the map can close and the form stays short
       if (btn) { btn.classList.add('is-set'); btn.querySelector('b')!.textContent = `Parcela ${r.no}, k. ú. ${r.area}`; btn.querySelector('small')!.textContent = `${r.m2 ? `${Number(r.m2).toLocaleString('sk-SK')} m² · ` : ''}${r.kind ? r.kind.toLowerCase() : ''} · zmeniť na mape`; }
-      if (out) out.textContent = `Parcela ${r.no}, k. ú. ${r.area}${r.m2 ? `, ${Number(r.m2).toLocaleString('sk-SK')} m²` : ''}${r.kind ? `, ${r.kind.toLowerCase()}` : ''}. Doplnené do správy.`;
-      setTimeout(() => { if (!box.hidden) btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 2600);
+      if (out) out.textContent = `Parcela ${r.no}, k. ú. ${r.area}${r.m2 ? `, ${Number(r.m2).toLocaleString('sk-SK')} m²` : ''}${r.kind ? `, ${r.kind.toLowerCase()}` : ''}. Kliknite inam, ak to nie je on.`;
+      if (ok) ok.hidden = false; // #86: the visitor confirms the outline; a wrong plot is one more click away, not a closed map
     } catch { if (out) out.textContent = 'Kataster neodpovedá. Napíšte obec a parcelu ručne.'; }
   });
   // #72: jump to a village or street (OpenStreetMap Nominatim, one request per search, Slovakia only)
@@ -92,6 +92,8 @@ btn?.addEventListener('click', async () => {
   };
   document.getElementById('mapGo')?.addEventListener('click', find);
   q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); find(); } });
+  const ok = document.getElementById('mapOk') as HTMLButtonElement | null;
+  ok?.addEventListener('click', () => { ok.hidden = true; btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: 'smooth' }); });
   document.getElementById('mapMe')?.addEventListener('click', () => map.locate({ setView: true, maxZoom: 18 }));
 });
 
