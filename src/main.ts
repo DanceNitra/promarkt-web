@@ -78,7 +78,7 @@ const fixedT = params.get('t');
 const portrait = window.matchMedia('(max-aspect-ratio: 3/4)').matches;
 const narrow = window.matchMedia('(max-width: 860px)').matches;
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string; downlink?: number } }).connection;
+const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
 let staticMode = reduced || params.get('static') === '1' || Boolean(conn?.saveData) || /(^|-)(2g|3g)$/.test(conn?.effectiveType || '');
 
 const cards = CARDS.map(([id], i) => prepareCard($(id), i + 1, narrow));
@@ -171,8 +171,7 @@ else {
   // Smooth scrubbing: a seek into a part of the file that is not downloaded yet waits for the network, and that wait
   // is the stutter people saw on the live site (17 to 26 pictures a second there, about 100 from a local file).
   // So the whole film is fetched once in the background and the player switches to the local copy.
-  // On a slow link the second download would halve the speed of the stream that the viewer is waiting for.
-  if ((conn?.downlink ?? 99) >= 8) fetch(filmUrl).then((r) => r.ok ? r.blob() : Promise.reject(r.status)).then((b) => {
+  if (params.get('noblob') !== '1') fetch(filmUrl).then((r) => r.ok ? r.blob() : Promise.reject(r.status)).then((b) => {
     const at = video.currentTime;
     video.src = URL.createObjectURL(b);
     video.addEventListener('loadedmetadata', () => { video.currentTime = at; }, { once: true });
@@ -266,13 +265,18 @@ function render() {
     // Forward scrolling PLAYS the film towards the scroll position, which the decoder does at full frame rate;
     // a seek costs one decode round trip (about 18 pictures a second, measured), so it is kept for jumps and for going back.
     if (video.readyState >= 2 && !video.seeking) {
-      const d = t - video.currentTime;
-      if (canPlay && d > 0.02 && d < 2.5) {
+      // The portrait file is 7 frames shorter than the landscape one. Playing past its end and calling play() again
+      // restarts it from 0 s, which is how the phone film jumped back to the start near the end.
+      const end = (video.duration || DUR) - 0.05;
+      const d = Math.min(t, end) - video.currentTime;
+      // Playing towards the target is only safe from the local copy: on the stream it stalls at the buffer edge and
+      // Chromium was measured falling back to 0 s, so the stream keeps the plain seeks it had before #102.
+      if (canPlay && have && !video.ended && document.documentElement.classList.contains('is-local') && d > 0.02 && d < 2.5) {
         video.playbackRate = Math.min(8, Math.max(0.3, d * 5));
         if (video.paused) video.play().catch(() => { canPlay = false; });
       } else {
         if (!video.paused) video.pause();
-        if (Math.abs(d) > 1 / 60) video.currentTime = t;
+        if (Math.abs(d) > 1 / 60) video.currentTime = Math.min(t, end);
       }
     }
   }
