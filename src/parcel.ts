@@ -33,7 +33,6 @@ btn?.addEventListener('click', async () => {
   if (!show || opened) return;
   opened = true;
   const L = (await import('leaflet')).default;
-  // @ts-expect-error vite resolves CSS imports
   await import('leaflet/dist/leaflet.css');
   const map = L.map('map', { center: [48.3069, 18.0864], zoom: 16, scrollWheelZoom: false });
   // #84: aerial photo by default (people know their plot by its roof and trees), yellow cadastral lines over it; a street map on request

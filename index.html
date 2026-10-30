@@ -155,6 +155,7 @@
             <a class="btn ask__send" id="askSend" href="sms:+421905292511">Napísať SMS</a>
           </div>
           <p class="note" id="askPreview" aria-live="polite"></p>
+          <div class="lead" id="lead" hidden><button type="button" id="leadMsgBtn">Poslať správu priamo zo stránky</button><button type="button" id="leadCallBtn">Zavolajte mi späť</button></div>
         </form>
         <div class="block__grid">
           <div>
@@ -246,6 +247,17 @@
     <a class="menu__tel" href="tel:+421905292511">0905 292 511</a>
   </nav>
   <div class="intro" id="intro" aria-hidden="true"><div class="intro__logo" id="introLogo"></div></div>
+  <dialog class="leaddlg" id="leadDlg" aria-labelledby="leadH">
+    <form>
+      <p class="lead__h" id="leadH">Pošlite správu priamo zo stránky</p>
+      <label>Vaše telefónne číslo<input id="leadPhone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="0905 123 456" /></label>
+      <label>Správa<textarea id="leadMsg" rows="4" maxlength="600"></textarea></label>
+      <label class="lead__hp" aria-hidden="true">Web<input name="website" tabindex="-1" autocomplete="off" /></label>
+      <div class="lead__captcha"></div>
+      <p class="lead__status" aria-live="polite"></p>
+      <div class="lead__bar"><button class="btn lead__send" type="submit" disabled>Odoslať správu</button><button class="act lead__close" type="button">Zavrieť</button></div>
+    </form>
+  </dialog>
   <div class="callbar" id="callbar"><a href="tel:+421905292511">Zavolať</a><a href="#ask">Napísať</a></div>
   <script type="module" src="/src/main.ts"></script>
 </body>
