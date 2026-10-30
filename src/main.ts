@@ -164,8 +164,18 @@ function enterStatic() {
 }
 if (staticMode) enterStatic();
 else {
-  video.src = portrait ? './film_portrait.mp4' : './film_1280.mp4';
+  const filmUrl = portrait ? './film_portrait.mp4' : './film_1280.mp4';
+  video.src = filmUrl;
   video.load();
+  // Smooth scrubbing: a seek into a part of the file that is not downloaded yet waits for the network, and that wait
+  // is the stutter people saw on the live site (17 to 26 pictures a second there, about 100 from a local file).
+  // So the whole film is fetched once in the background and the player switches to the local copy.
+  fetch(filmUrl).then((r) => r.ok ? r.blob() : Promise.reject(r.status)).then((b) => {
+    const at = video.currentTime;
+    video.src = URL.createObjectURL(b);
+    video.addEventListener('loadedmetadata', () => { video.currentTime = at; }, { once: true });
+    document.documentElement.classList.add('is-local');
+  }).catch(() => { /* the streamed file keeps working */ });
   setTimeout(() => { if (video.readyState < 2 && fixedT === null) enterStatic(); }, 3000);
 }
 video.addEventListener('loadeddata', () => { frame.style.backgroundImage = 'none'; });
@@ -243,7 +253,14 @@ function render() {
   if (staticMode) {
     const s = stillFor(t);
     if (s !== lastStill) { lastStill = s; still.src = s; }
-  } else if (video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - t) > 1 / 48) video.currentTime = t;
+  } else {
+    // While the film is still downloading, a time that is not buffered shows the nearest still instead of a frozen frame
+    let have = document.documentElement.classList.contains('is-local');
+    for (let i = 0; !have && i < video.buffered.length; i++) have = t >= video.buffered.start(i) && t <= video.buffered.end(i);
+    document.documentElement.classList.toggle('is-gap', !have);
+    if (!have) { const s = stillFor(t); if (s !== lastStill) { lastStill = s; still.src = s; } }
+    if (video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - t) > 1 / 120) video.currentTime = t;
+  }
 
   const z = staticMode ? { s: 1, x: 0.5, y: 0.5 } : zoomAt(t);
   video.style.transformOrigin = `${(z.x * 100).toFixed(2)}% ${(z.y * 100).toFixed(2)}%`;

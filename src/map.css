@@ -42,3 +42,20 @@
 .maphere[hidden] { display: none; }
 /* #96 keyboard focus on the map controls */
 .mapbtn:focus-visible, .maphere:focus-visible, .mapbox button:focus-visible, .mapbox input:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+/* #101 a button nobody can miss: a picture of the map, a bouncing pin, a pulsing edge, and words that say what happens */
+.mapbtn { display: grid; grid-template-columns: 112px 1fr auto; gap: 14px; align-items: center; padding: 10px 14px 10px 10px; border: 2px solid var(--orange); background: #fff; animation: mapPulse 2s ease-out infinite; }
+.mapbtn i:not(.mapbtn__pin) { display: none; }
+.mapbtn__thumb { position: relative; width: 112px; height: 84px; background: url('/map_thumb.jpg') center / cover, #3d4a35; border: 1px solid var(--ink); }
+.mapbtn__pin { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -24px 0 0 -11px; background: var(--stake); border: 2px solid #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 2px 6px rgba(0,0,0,.5); animation: pinHop 1.4s ease-in-out infinite; }
+.mapbtn b { font-size: 18px; line-height: 1.2; }
+.mapbtn b em { font-style: normal; color: var(--stake); }
+.mapbtn .click { display: none; }
+@media (hover: hover) and (pointer: fine) { .mapbtn .tap { display: none; } .mapbtn .click { display: inline; } }
+.mapbtn small { font-size: 14px; line-height: 1.35; color: var(--ink); opacity: .8; }
+.mapbtn::after { width: 40px; height: 40px; display: grid; place-items: center; background: var(--orange); color: var(--ink); font-size: 22px; border-radius: 50%; }
+.mapbtn.is-set, .mapbtn[aria-expanded="true"] { animation: none; }
+.mapbtn.is-set .mapbtn__pin, .mapbtn[aria-expanded="true"] .mapbtn__pin { animation: none; }
+@keyframes mapPulse { 0% { box-shadow: 0 0 0 0 rgba(220,128,45,.75); } 70% { box-shadow: 0 0 0 14px rgba(220,128,45,0); } 100% { box-shadow: 0 0 0 0 rgba(220,128,45,0); } }
+@keyframes pinHop { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+@media (max-width: 520px) { .mapbtn { grid-template-columns: 84px 1fr; } .mapbtn__thumb { width: 84px; height: 84px; } .mapbtn::after { display: none; } .mapbtn b { font-size: 17px; } .mapbtn small { font-size: 13px; } }
+@media (prefers-reduced-motion: reduce) { .mapbtn, .mapbtn__pin { animation: none; } }

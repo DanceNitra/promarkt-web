@@ -642,3 +642,4 @@ html.is-static #film { display: none; }
 .where__map { color: var(--paper); font-size: 14px; text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 4px; }
 .where__map::before { content: ''; display: inline-block; width: 9px; height: 9px; margin-right: 7px; border: 2px solid var(--stake); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
 @media (max-width: 860px) { .where__acts { justify-items: stretch; text-align: center; } }
+html.is-gap:not(.is-static) .still { display: block; }
