@@ -86,7 +86,7 @@ a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 .block__logo { width: min(420px, 78vw); margin: 0 0 32px; }
 .block__logo svg { display: block; width: 100%; height: auto; }
 .intro { position: fixed; inset: 0; z-index: 40; background: var(--night); display: grid; place-items: center; pointer-events: none; }
-.intro__logo { width: min(72vw, 820px); }
+.intro__logo { width: min(92vw, 1400px); }
 .intro__logo svg { display: block; width: 100%; height: auto; }
 /* the phone stays reachable during the intro */
 html.is-intro .nav { z-index: 41; background: none; }

@@ -112,28 +112,30 @@ function seenBefore() {
   try { const s = localStorage.getItem('pm_intro'); localStorage.setItem('pm_intro', '1'); return s === '1'; } catch { return false; }
 }
 
-// Intro: the logo is built piece by piece over the first frame, then flies into the nav. At most 2.2 s on the first
-// visit, about 1.2 s after that. Plays at the top of the page only; any scroll, touch or key finishes it at once.
+// Intro: the logo is built piece by piece over the first frame, then flies into the nav. About 3 s on every
+// visit and after it, full screen (#108: the owner saw only the 0.7 s quick version on return visits). Plays at the top of the page only; any scroll, touch or key finishes it at once.
 async function runIntro(navSvg: SVGSVGElement) {
   const intro = $('intro');
+  // #108: a reload restored the old scroll position and that silently skipped the intro; start at the top instead.
+  if (introParam === null && fixedT === null && !location.hash) { history.scrollRestoration = 'manual'; window.scrollTo(0, 0); }
   const skip = (fixedT !== null && introParam === null) || reduced || (introParam === null && window.scrollY > 40);
   if (skip) { intro.remove(); return; }
   const logo = await loadLogo($('introLogo'), './logo_dark.svg', LABEL);
   if (!logo) { intro.remove(); return; }
   if (introParam !== null) { buildAt(logo, parseFloat(introParam)); return; }   // preview hook
-  const quick = seenBefore();
+  seenBefore();
   navSvg.style.opacity = '0';
   document.documentElement.classList.add('is-intro');
   const st = { p: 0 };
   const done = () => { intro.remove(); navSvg.style.opacity = '1'; document.documentElement.classList.remove('is-intro'); };
   const tl = gsap.timeline({ onComplete: done });
-  tl.to(st, { p: 1, duration: quick ? 0.7 : 1.5, ease: 'none', onUpdate: () => buildAt(logo, st.p) });
+  tl.to(st, { p: 1, duration: 2.2, ease: 'none', onUpdate: () => buildAt(logo, st.p) });
   tl.add(() => {
     const a = logo.svg.getBoundingClientRect(), b = navSvg.getBoundingClientRect();
     gsap.to(logo.svg, { x: b.left - a.left, y: b.top - a.top, scale: b.width / a.width, transformOrigin: '0 0', duration: 0.55, ease: 'power3.inOut' });
     gsap.to(intro, { backgroundColor: 'rgba(23,24,26,0)', duration: 0.55, ease: 'power2.inOut' });
   }, '+=0.1');
-  tl.to({}, { duration: 0.6 });
+  tl.to({}, { duration: 0.4 });
   const skipNow = () => { tl.progress(1); };
   window.addEventListener('wheel', skipNow, { once: true, passive: true });
   window.addEventListener('touchstart', skipNow, { once: true, passive: true });
