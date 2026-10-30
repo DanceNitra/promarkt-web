@@ -156,11 +156,12 @@ if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     if (!a) return;
     e.preventDefault();
     const href = a.getAttribute('href') || 'sms:+421905292511';
+    const body = decodeURIComponent((href.split('body=')[1] || ''));
+    // #59: phone cameras read the SMSTO: form of an SMS QR code more widely than an sms: link
     const qr = qrcode(0, 'M');
-    qr.addData(href);
+    qr.addData(`SMSTO:+421905292511:${body}`, 'Byte');
     qr.make();
     dlg.querySelector('.qrdlg__qr')!.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
-    const body = decodeURIComponent((href.split('body=')[1] || ''));
     dlg.querySelector('.qrdlg__m')!.textContent = body || 'Dobrý deň, prosím o cenu a termín.';
     dlg.showModal();
   });
