@@ -48,8 +48,8 @@ btn?.addEventListener('click', async () => {
   document.querySelectorAll<HTMLButtonElement>('.mapbox__base button').forEach((b) => b.addEventListener('click', () => setBase(b.dataset.base === 'air')));
   const outline = L.polygon([], { color: '#cd191e', weight: 4, fillColor: '#cd191e', fillOpacity: 0.22 });
   const pin = L.circleMarker([0, 0], { radius: 9, color: '#cd191e', weight: 3, fillColor: '#cd191e', fillOpacity: 0.35 });
-  map.on('click', async (e: L.LeafletMouseEvent) => {
-    if (map.getZoom() < 15) { map.setView(e.latlng, 17); return; }
+  // #92: the same pick runs for a click and for 'Stojím na pozemku' (the phone's own position)
+  const pick = async (e: { latlng: L.LatLng }) => {
     pin.setLatLng(e.latlng).addTo(map);
     if (out) out.textContent = 'Hľadám parcelu…';
     const p = L.CRS.EPSG3857.project(e.latlng);
@@ -70,7 +70,8 @@ btn?.addEventListener('click', async () => {
       if (out) out.textContent = `Parcela ${r.no}, k. ú. ${r.area}${r.m2 ? `, ${Number(r.m2).toLocaleString('sk-SK')} m²` : ''}${r.kind ? `, ${r.kind.toLowerCase()}` : ''}. Kliknite inam, ak to nie je on.`;
       if (ok) ok.hidden = false; // #86: the visitor confirms the outline; a wrong plot is one more click away, not a closed map
     } catch { if (out) out.textContent = 'Kataster neodpovedá. Napíšte obec a parcelu ručne.'; }
-  });
+  };
+  map.on('click', (e: L.LeafletMouseEvent) => { if (map.getZoom() < 15) { map.setView(e.latlng, 17); return; } pick(e); });
   // #72: jump to a village or street (OpenStreetMap Nominatim, one request per search, Slovakia only)
   const q = document.getElementById('mapQ') as HTMLInputElement | null;
   const find = async () => {
@@ -95,7 +96,9 @@ btn?.addEventListener('click', async () => {
   q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); find(); } });
   const ok = document.getElementById('mapOk') as HTMLButtonElement | null;
   ok?.addEventListener('click', () => { ok.hidden = true; btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: 'smooth' }); });
-  document.getElementById('mapMe')?.addEventListener('click', () => map.locate({ setView: true, maxZoom: 18 }));
+  map.on('locationfound', (e: L.LocationEvent) => { map.setView(e.latlng, 18); pick(e); });
+  map.on('locationerror', () => { if (out) out.textContent = 'Polohu sa nepodarilo zistiť. Nájdite pozemok vyhľadaním alebo na mape.'; });
+  document.getElementById('mapMe')?.addEventListener('click', () => { if (out) out.textContent = 'Zisťujem polohu telefónu…'; map.locate({ enableHighAccuracy: true, timeout: 15000 }); });
 });
 
 // #71: links from the hero and the service pages arrive with ?map=1 and find the map already open
