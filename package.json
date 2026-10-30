@@ -12,7 +12,8 @@
     "@fontsource-variable/archivo": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "gsap": "^3.12.5",
-    "lenis": "^1.1.14"
+    "lenis": "^1.1.14",
+    "qrcode-generator": "^2.0.4"
   },
   "devDependencies": {
     "typescript": "^5.6.3",
