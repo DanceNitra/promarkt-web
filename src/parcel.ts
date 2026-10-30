@@ -49,6 +49,28 @@ btn?.addEventListener('click', async () => {
       if (out) out.textContent = `Parcela ${r.no}, k. ú. ${r.area}${r.m2 ? `, ${Number(r.m2).toLocaleString('sk-SK')} m²` : ''}${r.kind ? `, ${r.kind.toLowerCase()}` : ''}. Doplnené do správy.`;
     } catch { if (out) out.textContent = 'Kataster neodpovedá. Napíšte obec a parcelu ručne.'; }
   });
+  // #72: jump to a village or street (OpenStreetMap Nominatim, one request per search, Slovakia only)
+  const q = document.getElementById('mapQ') as HTMLInputElement | null;
+  const find = async () => {
+    const v = q?.value.trim(); if (!v) return;
+    if (out) out.textContent = 'Hľadám miesto…';
+    try {
+      // "obec, ulica" as people write it, then "ulica, obec" as OSM indexes it, then the village alone; 1.1 s apart (Nominatim policy)
+      const parts = v.split(',').map((x) => x.trim()).filter(Boolean);
+      const tries = [...new Set([v, parts.slice().reverse().join(', '), parts[0]])];
+      let r: { lat: string; lon: string; addresstype: string }[] = [];
+      for (const [i, t] of tries.entries()) {
+        if (i) await new Promise((ok) => setTimeout(ok, 1100));
+        r = await (await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=sk&accept-language=sk&limit=1&q=${encodeURIComponent(t)}`)).json();
+        if (r[0]) break;
+      }
+      if (!r[0]) { if (out) out.textContent = 'Miesto sme nenašli. Skúste obec bez ulice.'; return; }
+      map.setView([+r[0].lat, +r[0].lon], r[0].addresstype === 'city' || r[0].addresstype === 'town' || r[0].addresstype === 'village' ? 16 : 18);
+      if (out) out.textContent = 'Teraz kliknite na svoj pozemok.';
+    } catch { if (out) out.textContent = 'Vyhľadávanie neodpovedá. Posuňte mapu ručne.'; }
+  };
+  document.getElementById('mapGo')?.addEventListener('click', find);
+  q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); find(); } });
   document.getElementById('mapMe')?.addEventListener('click', () => map.locate({ setView: true, maxZoom: 18 }));
 });
 

@@ -550,3 +550,7 @@ html.is-static #film { display: none; }
 /* #71 the map as a fourth way in from the hero */
 .quick__map { display: flex !important; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; }
 .quick__map i { width: 14px; height: 14px; flex: none; border: 2px solid var(--stake); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+/* #72 search in the map */
+.mapbox__find { display: flex; border-bottom: 1px solid var(--ink); }
+.mapbox__find input { flex: 1; min-width: 0; border: 0; padding: 12px 14px; font: 15px var(--display); background: #fff; color: var(--ink); }
+.mapbox__find button { border: 0; background: var(--ink); color: var(--paper); font: 600 14px var(--display); padding: 0 18px; cursor: pointer; }
