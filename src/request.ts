@@ -41,3 +41,28 @@ document.querySelectorAll('.gallery__grid li, .faq details').forEach((el, i) => 
   el.classList.add('rise');
   io.observe(el);
 });
+
+// #15: the choice and the place survive a reload
+try {
+  const saved = JSON.parse(sessionStorage.getItem('ask') || 'null');
+  if (saved && form) {
+    const r = form.querySelector<HTMLInputElement>(`input[name="svc"][value="${CSS.escape(saved.svc)}"]`);
+    if (r) r.checked = true;
+    if (place && typeof saved.place === 'string') place.value = saved.place;
+    update();
+  }
+} catch { /* storage can be blocked */ }
+form?.addEventListener('input', () => {
+  try { sessionStorage.setItem('ask', JSON.stringify({ svc: form.querySelector<HTMLInputElement>('input[name="svc"]:checked')?.value, place: place?.value ?? '' })); } catch { /* ignore */ }
+});
+
+// #16: arrow keys move through the gallery while a picture is open
+document.addEventListener('keydown', (e) => {
+  const dlg = document.getElementById('lightbox') as HTMLDialogElement | null;
+  if (!dlg?.open || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('#galGrid button')];
+  const cur = btns.findIndex((b) => b.querySelector('img')!.src.replace('.jpg', '_l.jpg') === (document.getElementById('lbImg') as HTMLImageElement).src);
+  const next = btns[(cur + (e.key === 'ArrowRight' ? 1 : -1) + btns.length) % btns.length];
+  dlg.close();
+  next.click();
+});
