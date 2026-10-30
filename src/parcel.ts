@@ -7,15 +7,16 @@ const box = document.getElementById('mapBox');
 const place = document.getElementById('askPlace') as HTMLInputElement | null;
 const out = document.getElementById('mapOut');
 
-type Parcel = { no: string; area: string; m2: string; kind: string };
-function parse(xml: string): Parcel | null {
-  const doc = new DOMParser().parseFromString(xml, 'text/xml');
-  for (const f of Array.from(doc.getElementsByTagName('FIELDS'))) {
+type Parcel = { no: string; area: string; m2: string; kind: string; ring: number[][] | null };
+// #85: GeoJSON instead of XML, so the parcel's own outline comes back with its number (EPSG:3857 metres)
+function parse(json: string): Parcel | null {
+  const d = JSON.parse(json) as { features?: { properties?: Record<string, string>; geometry?: { type: string; coordinates: number[][][] } }[] };
+  for (const f of d.features ?? []) {
     const a: Record<string, string> = {};
-    for (const at of Array.from(f.attributes)) a[at.name.toLowerCase()] = at.value;
+    for (const [k, v] of Object.entries(f.properties ?? {})) a[k.toLowerCase().replace(/\s+/g, '')] = String(v);
     const k = (p: string) => Object.keys(a).find((x) => x.startsWith(p));
     const no = k('čísloparcely'), area = k('názovkatastrálneho');
-    if (no && area) return { no: a[no], area: a[area], m2: a[k('výmera') ?? ''] ?? '', kind: a[k('názovdruhu') ?? ''] ?? '' };
+    if (no && area) return { no: a[no], area: a[area], m2: a[k('výmera') ?? ''] ?? '', kind: a[k('názovdruhu') ?? ''] ?? '', ring: f.geometry?.type === 'Polygon' ? f.geometry.coordinates[0] : null };
   }
   return null;
 }
@@ -44,6 +45,7 @@ btn?.addEventListener('click', async () => {
   };
   setBase(true);
   document.querySelectorAll<HTMLButtonElement>('.mapbox__base button').forEach((b) => b.addEventListener('click', () => setBase(b.dataset.base === 'air')));
+  const outline = L.polygon([], { color: '#cd191e', weight: 4, fillColor: '#cd191e', fillOpacity: 0.22 });
   const pin = L.circleMarker([0, 0], { radius: 9, color: '#cd191e', weight: 3, fillColor: '#cd191e', fillOpacity: 0.35 });
   map.on('click', async (e: L.LeafletMouseEvent) => {
     if (map.getZoom() < 15) { map.setView(e.latlng, 17); return; }
@@ -51,15 +53,21 @@ btn?.addEventListener('click', async () => {
     if (out) out.textContent = 'Hľadám parcelu…';
     const p = L.CRS.EPSG3857.project(e.latlng);
     const q = new URLSearchParams({ SERVICE: 'WMS', REQUEST: 'GetFeatureInfo', VERSION: '1.3.0', LAYERS, QUERY_LAYERS: LAYERS, STYLES: '', CRS: 'EPSG:3857',
-      BBOX: [p.x - 1, p.y - 1, p.x + 1, p.y + 1].join(','), WIDTH: '3', HEIGHT: '3', I: '1', J: '1', INFO_FORMAT: 'text/xml' });
+      BBOX: [p.x - 1, p.y - 1, p.x + 1, p.y + 1].join(','), WIDTH: '3', HEIGHT: '3', I: '1', J: '1', INFO_FORMAT: 'application/geo+json' });
     try {
       const r = parse(await (await fetch(`${WMS}?${q}`)).text());
+      outline.remove();
+      if (r?.ring) {
+        outline.setLatLngs(r.ring.map(([x, y]) => L.CRS.EPSG3857.unproject(L.point(x, y)))).addTo(map);
+        map.fitBounds(outline.getBounds(), { padding: [30, 30], maxZoom: 19 });
+        pin.remove();
+      }
       if (!r) { if (out) out.textContent = 'Tu sme parcelu nenašli. Skúste kliknúť do stredu pozemku.'; return; }
       if (place) { place.dataset.pos = `${e.latlng.lat.toFixed(6)},${e.latlng.lng.toFixed(6)}`; place.value = `parcela ${r.no}, k. ú. ${r.area}`; place.dispatchEvent(new Event('input', { bubbles: true })); }
       // #74: the choice shows on the button itself, so the map can close and the form stays short
       if (btn) { btn.classList.add('is-set'); btn.querySelector('b')!.textContent = `Parcela ${r.no}, k. ú. ${r.area}`; btn.querySelector('small')!.textContent = `${r.m2 ? `${Number(r.m2).toLocaleString('sk-SK')} m² · ` : ''}${r.kind ? r.kind.toLowerCase() : ''} · zmeniť na mape`; }
       if (out) out.textContent = `Parcela ${r.no}, k. ú. ${r.area}${r.m2 ? `, ${Number(r.m2).toLocaleString('sk-SK')} m²` : ''}${r.kind ? `, ${r.kind.toLowerCase()}` : ''}. Doplnené do správy.`;
-      setTimeout(() => { if (!box.hidden) btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 1400);
+      setTimeout(() => { if (!box.hidden) btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 2600);
     } catch { if (out) out.textContent = 'Kataster neodpovedá. Napíšte obec a parcelu ručne.'; }
   });
   // #72: jump to a village or street (OpenStreetMap Nominatim, one request per search, Slovakia only)
