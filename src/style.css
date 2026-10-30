@@ -610,3 +610,15 @@ html.is-static #film { display: none; }
 /* #79 subtitles stay readable on the white plan: a dark plate behind the words */
 .sub { max-width: min(17ch, 50vw); padding: 14px 18px 16px; background: rgba(23,24,26,.82); box-shadow: 8px 8px 0 var(--orange); text-shadow: none; }
 @media (max-width: 860px) { .sub { right: auto; max-width: calc(100vw - 32px); font-size: 26px; padding: 12px 14px; } }
+/* #80 the stage chooser in the brand orange: it no longer merges with the dark gallery above it */
+.where { background: var(--orange); color: var(--ink); }
+.where .eyebrow { color: var(--ink); opacity: .75; }
+.where__track::before { background: rgba(44,44,46,.35); }
+.where__track button { color: rgba(44,44,46,.72); }
+.where__track button:hover, .where__track button[aria-selected="true"] { color: var(--ink); }
+.where__track button::before { background: var(--orange); border-color: var(--ink); }
+.where__track button[aria-selected="true"]::before { background: var(--ink); border-color: var(--ink); box-shadow: 0 0 0 4px var(--orange), 0 0 0 6px var(--ink); transform: none; }
+.where__out { background: var(--night); color: var(--paper); box-shadow: 10px 10px 0 rgba(44,44,46,.35); }
+.where__out .where__tag { color: var(--orange); }
+.where__out p:not(.where__tag) { color: rgba(243,241,234,.75); }
+.where__out .btn { background: var(--orange); color: var(--ink); }
