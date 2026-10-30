@@ -230,3 +230,10 @@ html.is-static #film { display: none; }
 /* ---------- #5: what to prepare ---------- */
 .prep summary { cursor: pointer; font-weight: 700; }
 .prep ul { margin: 10px 0 0; padding-left: 20px; line-height: 1.6; font-size: 15px; }
+
+/* ---------- #6: the phone bar has two buttons ---------- */
+@media (max-width: 860px) {
+  .callbar { padding: 0; }
+  .callbar a { flex: 1; display: flex; align-items: center; justify-content: center; height: 56px; color: inherit; text-decoration: none; }
+  .callbar a + a { background: var(--ink); color: var(--paper); }
+}
