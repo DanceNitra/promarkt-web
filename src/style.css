@@ -190,3 +190,18 @@ html.is-static #film { display: none; }
   .gallery__grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; border: 0; gap: 10px; }
   .gallery__grid li { flex: 0 0 82%; scroll-snap-align: start; border: 1.5px solid var(--ink); }
 }
+
+/* ---------- request form: the call is not the only way in ---------- */
+.ask { border: 1.5px solid var(--ink); padding: 24px; display: grid; gap: 16px; }
+.ask .label { margin: 0; }
+.ask__opts { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ask__opts label { cursor: pointer; }
+.ask__opts input { position: absolute; opacity: 0; pointer-events: none; }
+.ask__opts span { display: block; border: 1.5px solid var(--ink); padding: 10px 14px; font-weight: 600; }
+.ask__opts input:checked + span { background: var(--ink); color: var(--paper); }
+.ask__opts input:focus-visible + span { outline: 2px solid var(--orange); outline-offset: 2px; }
+.ask__row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.ask__field { flex: 1 1 16rem; display: grid; gap: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.ask__field input { font: inherit; font-family: var(--display); font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--ink); background: #fff; border: 1.5px solid var(--ink); padding: 11px 12px; border-radius: 0; }
+.ask__send { white-space: nowrap; }
+@media (max-width: 860px) { .ask { padding: 16px; } .ask__send { width: 100%; text-align: center; } }

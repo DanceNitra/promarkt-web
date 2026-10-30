@@ -99,6 +99,21 @@
           <p class="eyebrow eyebrow--ink">Kontakt</p>
           <h2>Od prvého kolíka po kolaudáciu.</h2>
         </div>
+        <form class="ask" id="ask" aria-labelledby="ask-h">
+          <p class="label" id="ask-h">Čo potrebujete? Stačí pár údajov, ozveme sa do 24 hodín.</p>
+          <fieldset class="ask__opts">
+            <legend class="sr-only">Služba</legend>
+            <label><input type="radio" name="svc" value="vytýčenie stavby" checked /><span>Vytýčenie stavby</span></label>
+            <label><input type="radio" name="svc" value="geometrický plán" /><span>Geometrický plán</span></label>
+            <label><input type="radio" name="svc" value="vytýčenie hranice pozemku" /><span>Hranica pozemku</span></label>
+            <label><input type="radio" name="svc" value="niečo iné" /><span>Niečo iné</span></label>
+          </fieldset>
+          <div class="ask__row">
+            <label class="ask__field">Obec alebo parcela<input id="askPlace" name="place" type="text" autocomplete="off" placeholder="napr. Nitra, Chrenová" /></label>
+            <a class="btn ask__send" id="askSend" href="sms:+421905292511">Napísať SMS</a>
+          </div>
+          <p class="note" id="askPreview" aria-live="polite"></p>
+        </form>
         <div class="block__grid">
           <div>
             <p class="label">Rastislav Drahoš, geodet</p>
