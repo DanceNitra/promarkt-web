@@ -410,3 +410,20 @@ html.is-static #film { display: none; }
   .block__inner { gap: 24px; }
   .block h2 { font-size: 30px; }
 }
+
+/* ---------- #44: questions in two columns, the phone beside them ---------- */
+.faq__inner { max-width: 1240px; }
+.faq__ask { font-size: 18px; margin: 0; }
+.faq__ask a { font-family: var(--mono); font-weight: 500; text-decoration: none; border-bottom: 2px solid var(--orange); }
+.faq summary { list-style: none; position: relative; padding-right: 40px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; position: absolute; right: 4px; top: -4px; font-size: 28px; font-weight: 400; color: var(--stake); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details { padding: 20px 0; }
+@media (min-width: 1000px) {
+  .faq__inner { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: 64px; }
+  .faq__inner > .eyebrow { grid-column: 1 / -1; }
+  .faq__side { position: sticky; top: calc(var(--nav-h) + 32px); align-self: start; }
+  .faq__side h2 { font-size: clamp(30px, 3vw, 46px); }
+  .faq__list { border-top: 1px solid rgba(44,44,46,.35); }
+}
