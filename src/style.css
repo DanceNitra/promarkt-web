@@ -338,3 +338,20 @@ html.is-static #film { display: none; }
 .fcta b { font-size: 19px; font-stretch: 108%; }
 .chap { display: none; }
 @media (max-width: 860px) { .fcta { left: 16px; right: 16px; bottom: calc(56px + 14px); } }
+
+/* ---------- #36: Kontakt in two columns, the form is the main thing ---------- */
+@media (min-width: 1000px) {
+  .block__inner { max-width: 1240px; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 56px; align-items: start; }
+  .block__head { grid-column: 1; grid-row: 1; }
+  .block__logo { width: 300px; margin-bottom: 24px; }
+  .ask { grid-column: 2; grid-row: 1 / span 3; position: sticky; top: calc(var(--nav-h) + 24px); background: #fff; box-shadow: 12px 12px 0 var(--ink); }
+  .proof { grid-column: 1; grid-row: 2; grid-template-columns: 1fr 1fr; }
+  .proof li:nth-child(2) { border-right: 0; }
+  .proof li:nth-child(-n+2) { border-bottom: 1px solid rgba(44,44,46,.35); }
+  .block__grid { grid-column: 1; grid-row: 3; grid-template-columns: 1fr; }
+  .block__grid > div { border-right: 0; border-bottom: 1.5px solid var(--ink); }
+}
+.ask__opts { display: grid; grid-template-columns: 1fr 1fr; }
+.ask__opts span { display: grid; gap: 2px; height: 100%; }
+.ask__opts small { font-weight: 400; font-size: 13px; color: var(--muted); }
+.ask__opts input:checked + span small { color: #cfcdc6; }

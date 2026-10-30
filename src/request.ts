@@ -110,7 +110,7 @@ if (share && typeof navigator.share === 'function') {
 }
 
 // #32: three plain-language buttons choose the service for visitors who do not know the term
-document.querySelectorAll<HTMLButtonElement>('#askHelp button').forEach((b) => {
+document.querySelectorAll<HTMLButtonElement>('#askHelp button') /* #36: row removed, kept harmless */.forEach((b) => {
   b.addEventListener('click', () => {
     const r = form?.querySelector<HTMLInputElement>(`input[name="svc"][value="${CSS.escape(b.dataset.svc || '')}"]`);
     if (r) { r.checked = true; update(); r.dispatchEvent(new Event('input', { bubbles: true })); }

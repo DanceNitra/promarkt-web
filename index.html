@@ -125,17 +125,12 @@
         </ul>
         <form class="ask" id="ask" aria-labelledby="ask-h">
           <p class="label" id="ask-h">Čo potrebujete? Stačí pár údajov, ozveme sa do 24 hodín.</p>
-          <p class="ask__help" id="askHelp">Neviete, čo potrebujete?
-            <button type="button" data-svc="vytýčenie stavby">Chcem stavať</button>
-            <button type="button" data-svc="geometrický plán">Dom už stojí</button>
-            <button type="button" data-svc="vytýčenie hranice pozemku">Riešim plot a hranicu</button>
-          </p>
           <fieldset class="ask__opts">
             <legend class="sr-only">Služba</legend>
-            <label><input type="radio" name="svc" value="vytýčenie stavby" checked /><span>Vytýčenie stavby</span></label>
-            <label><input type="radio" name="svc" value="geometrický plán" /><span>Geometrický plán</span></label>
-            <label><input type="radio" name="svc" value="vytýčenie hranice pozemku" /><span>Hranica pozemku</span></label>
-            <label><input type="radio" name="svc" value="niečo iné" /><span>Niečo iné</span></label>
+            <label><input type="radio" name="svc" value="vytýčenie stavby" checked /><span><b>Vytýčenie stavby</b><small>Chcem stavať</small></span></label>
+            <label><input type="radio" name="svc" value="geometrický plán" /><span><b>Geometrický plán</b><small>Dom už stojí</small></span></label>
+            <label><input type="radio" name="svc" value="vytýčenie hranice pozemku" /><span><b>Hranica pozemku</b><small>Riešim plot</small></span></label>
+            <label><input type="radio" name="svc" value="niečo iné" /><span><b>Niečo iné</b><small>Poradíme</small></span></label>
           </fieldset>
           <ol class="steps3" aria-label="Ako objednať">
             <li><b>1</b> Napíšete alebo zavoláte.</li>
