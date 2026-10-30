@@ -66,3 +66,10 @@ document.addEventListener('keydown', (e) => {
   dlg.close();
   next.click();
 });
+
+// #22: a link such as ./?s=geometrický plán#ask opens the form with that service chosen
+try {
+  const wanted = new URLSearchParams(location.search).get('s');
+  const r = wanted && form?.querySelector<HTMLInputElement>(`input[name="svc"][value="${CSS.escape(wanted)}"]`);
+  if (r) { r.checked = true; update(); }
+} catch { /* ignore */ }
