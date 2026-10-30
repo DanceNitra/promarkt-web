@@ -484,3 +484,15 @@ html.is-static #film { display: none; }
   .fcta span { color: var(--orange); }
   .fcta b { font-size: 17px; }
 }
+
+/* ---------- #56: the gallery is a dark, wide film strip between two paper sections ---------- */
+.gallery { background: var(--night); color: var(--paper); padding-top: 12vh; }
+.gallery__inner { max-width: 1240px; border-top: 0; padding-top: 0; }
+.gallery .eyebrow--ink { color: var(--orange); }
+.gallery h2 { font-size: clamp(32px, 3.6vw, 56px); }
+.gallery__grid { border: 0; gap: 18px; }
+.gallery__grid li { border: 0 !important; background: var(--graphite); }
+.gallery__grid .glab em { color: #b9b7b0; }
+.gallery__grid li:hover { outline: 2px solid var(--orange); }
+.faq { padding-top: 10vh; }
+.faq__inner { border-top: 0; padding-top: 0; }
