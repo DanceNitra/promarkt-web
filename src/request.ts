@@ -1,6 +1,7 @@
 import qrcode from 'qrcode-generator';
-// #60: Slovak diacritics in the QR text must be UTF-8 bytes; the library default is one byte per character
-qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+// #61: Slovak diacritics in the QR text must be UTF-8 bytes; the library default is one byte per character.
+// The ESM build has no stringToBytesFuncs (that broke this whole file in #60), so encode with TextEncoder.
+try { (qrcode as unknown as { stringToBytes: (s: string) => number[] }).stringToBytes = (s: string) => Array.from(new TextEncoder().encode(s)); } catch { /* keep the default */ }
 // Contact request: the visitor picks a service and a place, and the SMS to the surveyor is prefilled.
 // No server involved: the button opens the phone's own messages app.
 const NUMBER = '+421905292511';
