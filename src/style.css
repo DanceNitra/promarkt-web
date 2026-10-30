@@ -355,3 +355,13 @@ html.is-static #film { display: none; }
 .ask__opts span { display: grid; gap: 2px; height: 100%; }
 .ask__opts small { font-weight: 400; font-size: 13px; color: var(--muted); }
 .ask__opts input:checked + span small { color: #cfcdc6; }
+
+/* ---------- #37: a chapter rail on the left edge of the film ---------- */
+.rail { position: absolute; left: clamp(16px, 3vw, 40px); top: 50%; transform: translateY(-50%); z-index: 6; display: grid; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.rail.is-on { opacity: 1; pointer-events: auto; }
+.rail a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: rgba(243,241,234,.7); padding: 6px 10px 6px 0; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+.rail i { width: 3px; height: 26px; background: rgba(243,241,234,.4); transition: background .2s, height .2s; }
+.rail a.is-on { color: var(--paper); font-weight: 700; }
+.rail a.is-on i { background: var(--orange); height: 40px; }
+.rail a:hover { color: var(--paper); }
+@media (max-width: 860px) { .rail { display: none; } }

@@ -86,13 +86,17 @@ if (chap) {
     ['c2', '02 Základy', 'Vytýčiť moje základy', S('vytýčenie stavby')],
     ['c3', '03 Geometrický plán', 'Objednať geometrický plán', S('geometrický plán')],
   ];
-  let last = -1;
+  // #37: the chapter comes from the chapter anchors that main.ts places in the scroll, not from card visibility
   const narrative = document.getElementById('narrative');
+  const anchors = ['k0', 'k1', 'k2', 'k3'].map((id) => document.getElementById(id));
+  const rail = [...document.querySelectorAll<HTMLAnchorElement>('#rail a')];
   const tick = () => {
-    const i = names.findIndex(([id]) => { const c = document.getElementById(id); return !!c && getComputedStyle(c).visibility !== 'hidden' && Number(getComputedStyle(c).opacity) > 0.5; });
-    if (i >= 0) last = i;
+    const y = window.scrollY + window.innerHeight * 0.5;
+    let last = -1;
+    anchors.forEach((el, i) => { if (el && el.getBoundingClientRect().top + window.scrollY <= y) last = i; });
     const inFilm = !!narrative && window.scrollY < narrative.offsetHeight - window.innerHeight * 1.05 && window.scrollY > window.innerHeight * 0.15;
-    chap.textContent = i >= 0 ? names[i][1] : '';
+    rail.forEach((a, i) => a.classList.toggle('is-on', i === last));
+    document.getElementById('rail')?.classList.toggle('is-on', inFilm);
     if (fcta) {
       const on = inFilm && last >= 0;
       fcta.classList.toggle('is-on', on);
