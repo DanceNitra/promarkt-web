@@ -398,3 +398,15 @@ html.is-static #film { display: none; }
   .hero .btn--ghost { display: none; }
   .stage::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(23,24,26,.62) 0%, rgba(23,24,26,.25) 38%, rgba(23,24,26,0) 60%); opacity: var(--scrim, 1); }
 }
+
+/* ---------- #43: on a phone the form comes right after the heading ---------- */
+@media (max-width: 999px) {
+  .block { padding-top: 7vh; }
+  .block__logo { width: 170px; margin-bottom: 16px; }
+  .block__head { order: 0; }
+  .ask { order: 1; box-shadow: 8px 8px 0 var(--ink); background: #fff; }
+  .proof { order: 2; }
+  .block__grid { order: 3; }
+  .block__inner { gap: 24px; }
+  .block h2 { font-size: 30px; }
+}
