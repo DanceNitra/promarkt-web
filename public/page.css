@@ -1,7 +1,13 @@
-*{box-sizing:border-box}html,body{margin:0;background:#17181a;color:#f3f1ea;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+@font-face{font-family:'Archivo';font-style:normal;font-display:swap;font-weight:100 900;font-stretch:62% 125%;src:url(./fonts/archivo-latin-wdth-normal.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Archivo';font-style:normal;font-display:swap;font-weight:100 900;font-stretch:62% 125%;src:url(./fonts/archivo-latin-ext-wdth-normal.woff2) format('woff2-variations');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Plex';font-display:swap;font-weight:400;src:url(./fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:'Plex';font-display:swap;font-weight:400;src:url(./fonts/ibm-plex-mono-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02FF,U+1E00-1EFF}
+@font-face{font-family:'Plex';font-display:swap;font-weight:500;src:url(./fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:'Plex';font-display:swap;font-weight:500;src:url(./fonts/ibm-plex-mono-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02FF,U+1E00-1EFF}
+*{box-sizing:border-box}html,body{margin:0;background:#17181a;color:#f3f1ea;font-family:Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}header{display:flex;align-items:center;gap:16px;padding:14px clamp(16px,5vw,64px);border-bottom:1px solid rgba(243,241,234,.18)}
 header .home{font-weight:800;text-decoration:none;letter-spacing:.02em}header .call{margin-left:auto;background:#dc802d;color:#2c2c2e;padding:9px 14px;font-weight:700;text-decoration:none}
-main{max-width:72rem;margin:0 auto;padding:9vh clamp(16px,5vw,32px) 10vh}.eyebrow{font:12px/1 ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:#dc802d;margin:0 0 14px}
+main{max-width:72rem;margin:0 auto;padding:9vh clamp(16px,5vw,32px) 10vh}.eyebrow{font:12px/1 Plex,ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:#dc802d;margin:0 0 14px}
 h1{font-size:clamp(34px,6vw,64px);line-height:1;font-weight:800;margin:0 0 18px;text-wrap:balance}.lead{font-size:clamp(17px,2vw,21px);line-height:1.5;margin:0 0 28px}
 ul{padding-left:20px;line-height:1.7;font-size:17px;margin:0 0 32px}.cta{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 40px}
 .btn{display:inline-block;background:#dc802d;color:#2c2c2e;font-weight:700;padding:13px 18px;text-decoration:none}.btn.ghost{background:none;color:#f3f1ea;border:1.5px solid #f3f1ea}
@@ -11,10 +17,20 @@ footer{background:#2c2c2e;color:#cfcdc6;padding:24px clamp(16px,5vw,64px);font-s
 header .home img{height:40px;width:auto;display:block}
 .cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
 .pics{display:grid;gap:14px}.pics figure{margin:0}.pics img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
-.pics figcaption{font:12px/1.4 ui-monospace,Consolas,monospace;color:#cfcdc6;padding-top:6px}
+.pics figcaption{font:12px/1.4 Plex,ui-monospace,Consolas,monospace;color:#cfcdc6;padding-top:6px}
 nav.more{margin-top:40px}
 @media(max-width:860px){.cols{grid-template-columns:1fr}.pics{order:2}}
 
 header{position:sticky;top:0;z-index:5;background:#17181a}
 .bar{display:none}
 @media(max-width:860px){header .call{display:none}.bar{display:flex;position:fixed;inset:auto 0 0 0;height:56px;z-index:6}.bar a{flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;text-decoration:none;background:#dc802d;color:#2c2c2e}.bar a+a{background:#2c2c2e;color:#f3f1ea}footer{padding-bottom:84px}}
+
+/* #46: the service pages speak the same visual language as the film page */
+h1{font-stretch:112%;font-size:clamp(40px,5vw,76px);line-height:.98}
+.lead{font-stretch:100%}
+ul{list-style:none;padding:0;border-top:1.5px solid rgba(243,241,234,.3)}
+ul li{padding:12px 0 12px 22px;border-bottom:1px solid rgba(243,241,234,.15);position:relative}
+ul li::before{content:'';position:absolute;left:0;top:20px;width:8px;height:8px;background:#cd191e}
+.pics img{box-shadow:10px 10px 0 #dc802d}
+.pics figure+figure img{box-shadow:10px 10px 0 #f3f1ea}
+.btn{font-size:17px;padding:15px 22px}
