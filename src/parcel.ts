@@ -32,8 +32,18 @@ btn?.addEventListener('click', async () => {
   // @ts-expect-error vite resolves CSS imports
   await import('leaflet/dist/leaflet.css');
   const map = L.map('map', { center: [48.3069, 18.0864], zoom: 16, scrollWheelZoom: false });
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap', className: 'osm-muted' }).addTo(map);
-  L.tileLayer.wms(WMS, { layers: LAYERS, format: 'image/png', transparent: true, minZoom: 15, maxZoom: 19, attribution: 'Kataster © ÚGKK SR' }).addTo(map);
+  // #84: aerial photo by default (people know their plot by its roof and trees), yellow cadastral lines over it; a street map on request
+  const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap', className: 'osm-muted' });
+  const orto = L.tileLayer.wms('https://zbgisws.skgeodesy.sk/zbgis_ortofoto_wms/service.svc/get', { layers: '1', format: 'image/jpeg', maxZoom: 19, attribution: 'Ortofoto © GKÚ, NLC' });
+  const knNorm = L.tileLayer.wms(WMS, { layers: LAYERS, format: 'image/png', transparent: true, minZoom: 15, maxZoom: 19, attribution: 'Kataster © ÚGKK SR' });
+  const knOrto = L.tileLayer.wms(WMS.replace('kn_wms_norm', 'kn_wms_orto'), { layers: LAYERS, format: 'image/png', transparent: true, minZoom: 15, maxZoom: 19, attribution: 'Kataster © ÚGKK SR' });
+  const setBase = (air: boolean) => {
+    [osm, orto, knNorm, knOrto].forEach((l) => map.removeLayer(l));
+    (air ? [orto, knOrto] : [osm, knNorm]).forEach((l) => l.addTo(map));
+    document.querySelectorAll<HTMLButtonElement>('.mapbox__base button').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.base === 'air') === air)));
+  };
+  setBase(true);
+  document.querySelectorAll<HTMLButtonElement>('.mapbox__base button').forEach((b) => b.addEventListener('click', () => setBase(b.dataset.base === 'air')));
   const pin = L.circleMarker([0, 0], { radius: 9, color: '#cd191e', weight: 3, fillColor: '#cd191e', fillOpacity: 0.35 });
   map.on('click', async (e: L.LeafletMouseEvent) => {
     if (map.getZoom() < 15) { map.setView(e.latlng, 17); return; }
