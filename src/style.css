@@ -534,3 +534,16 @@ html.is-static #film { display: none; }
 .sub.is-on { opacity: 1; transform: none; }
 @media (max-width: 860px) { .sub { left: 16px; right: 16px; max-width: none; bottom: calc(56px + 14px + 78px); font-size: 30px; } }
 @media (prefers-reduced-motion: reduce) { .sub { transition: none; transform: none; } }
+
+/* #70 cadastral map in the form */
+.mapbtn { display: flex; align-items: center; gap: 10px; width: 100%; margin: 12px 0 0; padding: 12px 14px; border: 1px dashed rgba(44,44,46,.45); background: transparent; font: 600 15px var(--display); color: var(--ink); cursor: pointer; text-align: left; }
+.mapbtn i { width: 18px; height: 18px; flex: none; border: 2px solid var(--stake); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+.mapbtn:hover { border-color: var(--orange); background: rgba(220,128,45,.08); }
+.mapbtn[aria-expanded="true"] { border-style: solid; border-color: var(--ink); }
+.mapbox { margin-top: 8px; border: 1px solid var(--ink); }
+.mapbox__map { height: clamp(260px, 42vh, 380px); background: #e8e6df; }
+.mapbox__bar { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 10px 12px; background: var(--ink); color: var(--paper); }
+.mapbox__bar p { margin: 0; font-size: 14px; }
+.mapbox__bar button { flex: none; border: 1px solid var(--paper); background: transparent; color: var(--paper); font: 500 12px var(--mono); padding: 7px 10px; cursor: pointer; }
+.leaflet-container { font: 12px var(--display); }
+.osm-muted { filter: grayscale(1) contrast(.85) brightness(1.08); }
