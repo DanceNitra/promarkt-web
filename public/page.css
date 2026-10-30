@@ -43,3 +43,13 @@ ul li::before{content:'';position:absolute;left:0;top:20px;width:8px;height:8px;
 .mini input{font:16px Archivo,system-ui,sans-serif;padding:12px;border:1.5px solid #2c2c2e;border-radius:0;color:#2c2c2e}
 .mini .btn.ghost{color:#2c2c2e;border-color:#2c2c2e}
 @media(max-width:860px){.mini{grid-template-columns:1fr}}
+
+/* #51: other services as photo cards */
+nav.more{display:block}
+.svcs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:0 0 20px}
+.svc{display:block;text-decoration:none;background:#f3f1ea;color:#2c2c2e}
+.svc img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.svc b{display:block;padding:12px 14px;font-size:18px}
+.svc:hover b{background:#dc802d}
+.back{display:flex;gap:20px;font-size:15px}
+@media(max-width:860px){.svcs{grid-template-columns:1fr}}
