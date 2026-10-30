@@ -1,4 +1,6 @@
 import qrcode from 'qrcode-generator';
+// #60: Slovak diacritics in the QR text must be UTF-8 bytes; the library default is one byte per character
+qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
 // Contact request: the visitor picks a service and a place, and the SMS to the surveyor is prefilled.
 // No server involved: the button opens the phone's own messages app.
 const NUMBER = '+421905292511';
