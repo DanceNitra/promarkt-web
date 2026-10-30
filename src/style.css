@@ -472,3 +472,8 @@ html.is-static #film { display: none; }
   .hero .quick { order: 5; }
   .hero__note { order: 4; margin: 0 0 10px; }
 }
+
+/* ---------- #53: the lightbox sells too ---------- */
+.lightbox__bar { align-items: center; }
+.lb__want { margin-right: auto; background: var(--orange); color: var(--ink); text-decoration: none; font-weight: 800; padding: 10px 16px; }
+.lightbox__bar button:first-of-type { background: transparent; color: var(--paper); border: 1px solid rgba(243,241,234,.4); }

@@ -131,3 +131,13 @@ const setMenu = (open: boolean) => { if (!menu || !menuBtn) return; menu.hidden 
 menuBtn?.addEventListener('click', () => setMenu(menu?.hidden ?? false));
 menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+// #53: from any gallery photo, one button to the form with the matching service chosen
+const lbWant = document.getElementById('lbWant') as HTMLAnchorElement | null;
+document.querySelectorAll<HTMLButtonElement>('#galGrid button').forEach((b) => {
+  b.addEventListener('click', () => {
+    const i = Number(b.dataset.i || 0);
+    const svc = i <= 3 ? 'vytýčenie stavby' : 'geometrický plán';
+    if (lbWant) { lbWant.href = `./?s=${encodeURIComponent(svc)}#ask`; lbWant.textContent = i <= 3 ? 'Chcem vytýčiť stavbu' : 'Chcem geometrický plán'; }
+  });
+});
