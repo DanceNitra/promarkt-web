@@ -371,3 +371,15 @@ html.is-static #film { display: none; }
 .closer h2 { font-size: clamp(40px, 6vw, 96px); max-width: 14ch; }
 .closer p { justify-content: flex-start; }
 .closer::after { content: 'Nitra a okolie · 0905 292 511'; display: block; margin-top: 28px; font-family: var(--mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); }
+
+.closer h2 { max-width: 19ch; }
+/* ---------- #39: the gallery is a route of six numbered points ---------- */
+.gallery__grid { gap: 0; counter-reset: none; }
+.gallery__grid button { position: relative; overflow: hidden; }
+.gallery__grid img { transition: transform .5s ease; }
+.gallery__grid button:hover img { transform: scale(1.05); filter: none; }
+.gallery__grid .gnum { position: absolute; left: 12px; top: 12px; padding: 0; font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; color: var(--paper); text-shadow: 0 2px 14px rgba(0,0,0,.6); letter-spacing: 0; }
+.gallery__grid .gnum::after { content: ''; display: block; width: 10px; height: 10px; background: var(--stake); margin-top: 8px; }
+.gallery__grid .glab { display: grid; gap: 4px; padding: 14px 16px 18px; font-family: var(--display); letter-spacing: 0; }
+.gallery__grid .glab b { font-size: 18px; }
+.gallery__grid .glab em { font-style: normal; font-size: 14px; color: var(--muted); line-height: 1.45; }
