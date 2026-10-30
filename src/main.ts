@@ -254,7 +254,7 @@ function render() {
   hero.style.visibility = t > HERO_END ? 'hidden' : 'visible';
   CARDS.forEach(([, c0, f0, c1, f1], i) => driveCard(cards[i], t > at(c0, f0) && t < at(c1, f1), reduced));
   measure.classList.toggle('is-on', t > MEASURE[0] && t < MEASURE[1]);
-  const sNow = SUBS.find(([c0, f0, c1, f1]) => t > at(c0, f0) && t < at(c1, f1));
+  const sNow = staticMode ? undefined : SUBS.find(([c0, f0, c1, f1]) => t > at(c0, f0) && t < at(c1, f1));
   const sText = sNow ? sNow[4] : '';
   if (sText !== subText) { subText = sText; if (sText) sub.textContent = sText; sub.classList.toggle('is-on', Boolean(sText)); }
 

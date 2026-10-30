@@ -196,7 +196,7 @@ qText?.addEventListener('input', qUpdate);
 qUpdate();
 
 // #78: the visitor says where the build is; the matching service is named and preselected in the form
-const stageBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.stage__track button'));
+const stageBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.where__track button'));
 stageBtns.forEach((b) => b.addEventListener('click', () => {
   stageBtns.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
   document.getElementById('stageH')!.textContent = b.dataset.h ?? '';
