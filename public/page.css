@@ -14,3 +14,7 @@ header .home img{height:40px;width:auto;display:block}
 .pics figcaption{font:12px/1.4 ui-monospace,Consolas,monospace;color:#cfcdc6;padding-top:6px}
 nav.more{margin-top:40px}
 @media(max-width:860px){.cols{grid-template-columns:1fr}.pics{order:2}}
+
+header{position:sticky;top:0;z-index:5;background:#17181a}
+.bar{display:none}
+@media(max-width:860px){header .call{display:none}.bar{display:flex;position:fixed;inset:auto 0 0 0;height:56px;z-index:6}.bar a{flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;text-decoration:none;background:#dc802d;color:#2c2c2e}.bar a+a{background:#2c2c2e;color:#f3f1ea}footer{padding-bottom:84px}}
