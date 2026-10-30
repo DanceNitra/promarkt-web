@@ -81,7 +81,6 @@ if (chap) {
   const tick = () => {
     const on = names.find(([id]) => { const c = document.getElementById(id); return c && getComputedStyle(c).visibility !== 'hidden' && Number(getComputedStyle(c).opacity) > 0.5; });
     chap.textContent = on ? on[1] : '';
-    requestAnimationFrame(tick);
   };
-  requestAnimationFrame(tick);
+  setInterval(tick, 250);
 }
