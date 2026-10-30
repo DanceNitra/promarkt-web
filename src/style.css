@@ -460,3 +460,15 @@ html.is-static #film { display: none; }
   .menu a:nth-child(n+4) { font-size: 18px; font-weight: 600; }
   .menu__tel { font-family: var(--mono); color: var(--orange) !important; font-weight: 500 !important; font-size: 24px !important; border-bottom: 0 !important; margin-top: 12px; }
 }
+
+/* ---------- #52: the phone form is only what is needed to send it ---------- */
+@media (max-width: 860px) {
+  .ask .steps3 { display: none; }
+  .ask__opts { gap: 6px; }
+  .ask__opts span { padding: 9px 10px; }
+  .ask__opts b { font-size: 15px; }
+  .ask .label { font-size: 11px; }
+  .hero { display: flex; flex-direction: column; align-items: flex-start; }
+  .hero .quick { order: 5; }
+  .hero__note { order: 4; margin: 0 0 10px; }
+}
