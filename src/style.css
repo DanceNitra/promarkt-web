@@ -383,3 +383,10 @@ html.is-static #film { display: none; }
 .gallery__grid .glab { display: grid; gap: 4px; padding: 14px 16px 18px; font-family: var(--display); letter-spacing: 0; }
 .gallery__grid .glab b { font-size: 18px; }
 .gallery__grid .glab em { font-style: normal; font-size: 14px; color: var(--muted); line-height: 1.45; }
+
+/* ---------- #40: a calm nav, two actions on the right ---------- */
+.nav__links { font-size: 15px; gap: 28px; }
+.nav__write { text-decoration: none; font-weight: 700; font-size: 15px; border: 1.5px solid var(--paper); padding: 8px 14px; }
+.nav__write:hover { background: var(--paper); color: var(--ink); }
+.nav { gap: 18px; }
+@media (max-width: 860px) { .nav__write { display: none; } }
