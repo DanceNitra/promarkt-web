@@ -41,6 +41,12 @@ a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 /* ---------- Stage ---------- */
 .narrative { position: relative; }
 .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+/* #110 opening photograph (OpenAI gpt-image, 3840x2160 and 2160x3840); it covers the film's first cut and fades out */
+.opener { position: absolute; inset: 0; z-index: 1; pointer-events: none; will-change: opacity, transform; }
+.opener img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; display: block; }
+/* on a phone the headline covers the lower half, so the photo is lifted: the red stake top lands near 40% of the
+   screen height and the hammer sits under the nav (y' = 1.22 y - 0.2) */
+@media (max-aspect-ratio: 3/4) { .opener img { object-position: 50% 0; transform-origin: 50% 0; transform: translateY(-20%) scale(1.22); } }
 .frame { position: absolute; inset: 0; overflow: hidden; background: var(--night) center / cover no-repeat url('/poster_1280.jpg'); }
 #film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 50%; will-change: transform; }
 .anchor { position: absolute; left: 0; width: 1px; height: 1px; }

@@ -66,6 +66,7 @@ const $ = (id: string) => document.getElementById(id)!;
 const video = $('film') as HTMLVideoElement;
 const still = $('still') as HTMLImageElement;
 const frame = $('frame');
+const opener = $('opener');
 const narrative = $('narrative');
 const nav = $('nav');
 const bar = $('bar');
@@ -283,6 +284,11 @@ function render() {
     }
   }
 
+  // The opening photograph covers the whole first cut (the old hammer shot) and dissolves into the second cut.
+  const hf = clamp01((t - cut("kolik").end) / 0.4);
+  opener.style.opacity = (1 - hf).toFixed(3);
+  opener.style.transform = `scale(${(1 + 0.05 * clamp01(t / 2)).toFixed(4)})`;
+  opener.style.visibility = hf >= 1 ? 'hidden' : 'visible';
   const z = staticMode ? { s: 1, x: 0.5, y: 0.5 } : zoomAt(t);
   video.style.transformOrigin = `${(z.x * 100).toFixed(2)}% ${(z.y * 100).toFixed(2)}%`;
   video.style.transform = `scale(${z.s.toFixed(4)})`;

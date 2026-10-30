@@ -21,8 +21,8 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Váš dom začína jedným kolíkom. Geodet Nitra, 0905 292 511." />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="preload" as="image" href="./poster_1280.jpg" media="(min-aspect-ratio: 3/4)" />
-  <link rel="preload" as="image" href="./poster_portrait.jpg" media="(max-aspect-ratio: 3/4)" />
+  <link rel="preload" as="image" type="image/webp" imagesrcset="./hero/hero_l_1280.webp 1280w, ./hero/hero_l_1920.webp 1920w, ./hero/hero_l_2560.webp 2560w, ./hero/hero_l_3840.webp 3840w" imagesizes="100vw" media="(min-aspect-ratio: 3/4)" fetchpriority="high" />
+  <link rel="preload" as="image" type="image/webp" imagesrcset="./hero/hero_p_720.webp 720w, ./hero/hero_p_1080.webp 1080w, ./hero/hero_p_1440.webp 1440w, ./hero/hero_p_2160.webp 2160w" imagesizes="100vw" media="(max-aspect-ratio: 3/4)" fetchpriority="high" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,6 +57,7 @@
         <div class="frame" id="frame">
           <video id="film" muted playsinline preload="metadata" aria-hidden="true"></video>
           <img class="still" id="still" alt="" aria-hidden="true" />
+          <picture class="opener" id="opener" aria-hidden="true"><source media="(max-aspect-ratio: 3/4)" type="image/webp" srcset="./hero/hero_p_720.webp 720w, ./hero/hero_p_1080.webp 1080w, ./hero/hero_p_1440.webp 1440w, ./hero/hero_p_2160.webp 2160w" sizes="122vw" /><source type="image/webp" srcset="./hero/hero_l_1280.webp 1280w, ./hero/hero_l_1920.webp 1920w, ./hero/hero_l_2560.webp 2560w, ./hero/hero_l_3840.webp 3840w" sizes="100vw" /><img src="./hero/hero_l_1920.jpg" alt="" fetchpriority="high" decoding="async" /></picture>
         </div>
         <p class="sr-only">Film: geodet zatlčie kolík, prístrojom GNSS na výtyčke vytýči rohy domu, na základoch vyznačí múr klincom a hotový dom zameria do geometrického plánu.</p>
         <p class="measure" id="measure" aria-hidden="true"><b>Roh R1</b> dE 0,008 m · dN 0,005 m · tolerancia 0,010 m · <em>v tolerancii</em></p>
