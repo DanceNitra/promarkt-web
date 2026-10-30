@@ -81,3 +81,9 @@ header .hmap:focus-visible{outline:3px solid #dc802d;outline-offset:2px}
 /* #104 */
 h1.eyebrow{font:12px/1 Plex,ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:#dc802d;margin:0 0 14px}
 .steps ol{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px}.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:baseline;font-size:17px;line-height:1.45}.steps li::before{content:counter(s);font:700 20px Archivo,system-ui;color:#dc802d}
+/* #105 price box on the service pages */
+.price ul{list-style:none;margin:0;padding:0}
+.price li{display:flex;justify-content:space-between;gap:16px;align-items:baseline;border-bottom:1px solid rgba(243,241,234,.2);padding:12px 0;font-size:17px}
+.price li b{color:#fff;font-size:22px;white-space:nowrap}
+.price p{margin:12px 0 0;color:#cfcdc6;line-height:1.55;max-width:60ch;font-size:15px}
+.price li::before{display:none}

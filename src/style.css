@@ -666,3 +666,15 @@ html.is-gap:not(.is-static) .still { display: block; }
 /* #104 the H1 carries the words people search for; the slogan stays the big line */
 .hero h1.eyebrow { font-size: 12px; line-height: inherit; font-weight: 400; font-stretch: normal; margin: 0 0 14px; }
 @media (max-width: 860px) { .hero h1.eyebrow { font-size: 10.5px; } }
+
+/* #105 price list, same paper band as the FAQ */
+.cennik { position: relative; z-index: 3; background: var(--paper); color: var(--ink); padding: 0 clamp(16px, 6vw, 90px) 4vh; }
+.cennik__inner { max-width: 980px; margin: 0 auto; border-top: 1.5px solid var(--ink); padding-top: 8vh; }
+.cennik h2 { font-size: clamp(26px, 2.8vw, 40px); font-stretch: 108%; margin: 0 0 24px; }
+.cennik__list { list-style: none; margin: 0; padding: 0; }
+.cennik__list li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-bottom: 1px solid rgba(44,44,46,.35); padding: 14px 0; }
+.cennik__list b { font-size: 18px; }
+.cennik__list b a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.cennik__list small { display: block; font-size: 14px; opacity: .72; margin-top: 2px; }
+.cennik__list em { font-style: normal; font-weight: 800; font-size: clamp(20px, 2.2vw, 26px); white-space: nowrap; color: var(--red, #cd191e); }
+.cennik__note { margin: 18px 0 0; max-width: 62ch; line-height: 1.55; font-size: 15px; }
