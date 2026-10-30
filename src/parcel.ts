@@ -4,7 +4,8 @@ const WMS = 'https://kataster.skgeodesy.sk/eskn/services/NR/kn_wms_norm/MapServe
 const LAYERS = '1,2,3,4,5,6,7,8';
 const btn = document.getElementById('mapBtn') as HTMLButtonElement | null;
 const box = document.getElementById('mapBox');
-const place = document.getElementById('askPlace') as HTMLInputElement | null;
+import './map.css';
+const place = (document.getElementById('askPlace') ?? document.getElementById('mPlace')) as HTMLInputElement | null;
 const out = document.getElementById('mapOut');
 
 type Parcel = { no: string; area: string; m2: string; kind: string; ring: number[][] | null };

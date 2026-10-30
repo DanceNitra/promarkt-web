@@ -1,0 +1,36 @@
+/* #89 the cadastral map picker, shared by the home page and the service pages (moved out of style.css) */
+.mapbtn, .mapbox { --ink: #2c2c2e; --paper: #f3f1ea; --orange: #dc802d; --stake: #cd191e; --muted: #5e5c57;
+  --display: 'Archivo Variable', 'Archivo', system-ui, sans-serif; --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace; }
+.mapbtn { display: flex; align-items: center; gap: 10px; width: 100%; margin: 12px 0 0; padding: 12px 14px; border: 1px dashed rgba(44,44,46,.45); background: transparent; font: 600 15px var(--display); color: var(--ink); cursor: pointer; text-align: left; }
+.mapbtn i { width: 18px; height: 18px; flex: none; border: 2px solid var(--stake); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+.mapbtn:hover { border-color: var(--orange); background: rgba(220,128,45,.08); }
+.mapbtn[aria-expanded="true"] { border-style: solid; border-color: var(--ink); }
+.mapbox { margin-top: 8px; border: 1px solid var(--ink); }
+.mapbox__map { height: clamp(260px, 42vh, 380px); background: #e8e6df; }
+.mapbox__bar { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 10px 12px; background: var(--ink); color: var(--paper); }
+.mapbox__bar p { margin: 0; font-size: 14px; }
+.mapbox__bar button { flex: none; border: 1px solid var(--paper); background: transparent; color: var(--paper); font: 500 12px var(--mono); padding: 7px 10px; cursor: pointer; }
+.leaflet-container { font: 12px var(--display); }
+.osm-muted { filter: grayscale(1) contrast(.85) brightness(1.08); }
+.mapbox__find { display: flex; border-bottom: 1px solid var(--ink); }
+.mapbox__find input { flex: 1; min-width: 0; border: 0; padding: 12px 14px; font: 15px var(--display); background: #fff; color: var(--ink); }
+.mapbox__find button { border: 0; background: var(--ink); color: var(--paper); font: 600 14px var(--display); padding: 0 18px; cursor: pointer; }
+.mapbtn { margin: 14px 0 0; border: 2px solid var(--ink); border-style: solid; background: #fff; padding: 14px 16px; }
+.mapbtn span { display: grid; gap: 2px; }
+.mapbtn b { font-size: 16px; }
+.mapbtn small { font: 400 13px var(--display); color: var(--muted); }
+.mapbtn::after { content: '→'; margin-left: auto; font-weight: 800; font-size: 18px; }
+.mapbtn[aria-expanded="true"]::after { content: '×'; }
+.mapbox + .ask__row, .mapbtn + .mapbox[hidden] + .ask__row { margin-top: 14px; }
+.mapbtn.is-set { border-color: var(--stake); background: #fff6f5; }
+.mapbtn.is-set i { background: var(--stake); }
+.mapbtn.is-set::after { content: '✓'; color: var(--stake); }
+.mapbtn.is-set[aria-expanded="true"]::after { content: '×'; color: inherit; }
+.mapbox__wrap { position: relative; }
+.mapbox__base { position: absolute; z-index: 500; top: 10px; right: 10px; display: flex; box-shadow: 0 2px 10px rgba(0,0,0,.3); }
+.mapbox__base button { border: 0; background: #fff; color: var(--ink); font: 600 13px var(--display); padding: 8px 12px; cursor: pointer; }
+.mapbox__base button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.mapbox__acts { display: flex; gap: 8px; flex: none; }
+.mapbox__bar .mapbox__ok { background: var(--orange); color: var(--ink); border-color: var(--orange); font: 700 14px var(--display); padding: 9px 12px; }
+.mapbox__ok[hidden] { display: none; }
+@media (max-width: 860px) { .mapbox__bar { flex-wrap: wrap; } .mapbox__acts { width: 100%; } .mapbox__acts button { flex: 1; } }
