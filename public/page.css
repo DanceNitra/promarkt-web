@@ -70,3 +70,10 @@ nav.more{display:block}
 .qa summary::after{content:'+';position:absolute;right:4px;top:-2px;color:#cd191e;font-size:24px;font-weight:400}
 .qa details[open] summary::after{content:'−'}
 .qa details p{margin:10px 0 0;color:#cfcdc6;line-height:1.55;max-width:60ch}
+
+/* #100 the map from the header of every service page */
+header .hmap{margin-left:auto;background:none;border:1.5px solid rgba(243,241,234,.5);color:inherit;font:600 14px Archivo,system-ui,sans-serif;padding:8px 12px;cursor:pointer}
+header .hmap::before{content:'';display:inline-block;width:9px;height:9px;margin-right:8px;border:2px solid #cd191e;border-radius:50% 50% 50% 0;transform:rotate(-45deg)}
+header .hmap+.call{margin-left:0}
+header .hmap:focus-visible{outline:3px solid #dc802d;outline-offset:2px}
+@media (max-width:520px){header .hmap{font-size:13px;padding:7px 9px}header .call{font-size:13px;padding:8px 10px}}
