@@ -450,3 +450,13 @@ html.is-static #film { display: none; }
 .rail a { text-shadow: none; padding: 4px 6px 4px 0; }
 .rail i { height: 18px; }
 .rail a.is-on i { height: 26px; }
+
+/* ---------- #50: phone menu ---------- */
+.nav__menu, .menu { display: none; }
+@media (max-width: 860px) {
+  .nav__menu { display: block; margin-left: auto; font: inherit; font-weight: 700; font-size: 15px; background: none; color: var(--paper); border: 1.5px solid var(--paper); padding: 8px 14px; }
+  .menu:not([hidden]) { display: grid; position: fixed; inset: calc(var(--nav-h) + env(safe-area-inset-top, 0px)) 0 56px 0; z-index: 25; background: var(--night); padding: 24px 16px; align-content: start; gap: 0; overflow-y: auto; }
+  .menu a { color: var(--paper); text-decoration: none; font-size: 26px; font-weight: 800; font-stretch: 108%; padding: 14px 0; border-bottom: 1px solid rgba(243,241,234,.15); }
+  .menu a:nth-child(n+4) { font-size: 18px; font-weight: 600; }
+  .menu__tel { font-family: var(--mono); color: var(--orange) !important; font-weight: 500 !important; font-size: 24px !important; border-bottom: 0 !important; margin-top: 12px; }
+}

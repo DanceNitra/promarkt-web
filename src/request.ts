@@ -123,3 +123,11 @@ document.querySelectorAll<HTMLButtonElement>('#askHelp button') /* #36: row remo
     if (r) { r.checked = true; update(); r.dispatchEvent(new Event('input', { bubbles: true })); }
   });
 });
+
+// #50: a menu on phones, where the nav links do not fit
+const menuBtn = document.getElementById('menuBtn') as HTMLButtonElement | null;
+const menu = document.getElementById('menu');
+const setMenu = (open: boolean) => { if (!menu || !menuBtn) return; menu.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.textContent = open ? 'Zavrieť' : 'Menu'; };
+menuBtn?.addEventListener('click', () => setMenu(menu?.hidden ?? false));
+menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });

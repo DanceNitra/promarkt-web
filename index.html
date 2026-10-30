@@ -45,7 +45,7 @@
     <nav class="nav__links" aria-label="Kapitoly">
       <a href="#galeria">Ako to prebieha</a><a href="#faq">Otázky</a><a href="#kontakt">Kontakt</a>
     </nav>
-    <a class="nav__write" href="#ask">Napísať</a><a class="nav__call" href="tel:+421905292511"><span>Zavolať</span> 0905 292 511</a>
+    <a class="nav__write" href="#ask">Napísať</a><button class="nav__menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button><a class="nav__call" href="tel:+421905292511"><span>Zavolať</span> 0905 292 511</a>
   </header>
 
   <main id="top">
@@ -216,6 +216,11 @@
   </main>
   <noscript><p style="background:#dc802d;color:#2c2c2e;padding:16px;text-align:center;font-weight:700">PROMARKT NITRA SK s.r.o., geodet Rastislav Drahoš: <a href="tel:+421905292511">0905 292 511</a></p></noscript>
 
+  <nav class="menu" id="menu" aria-label="Menu" hidden>
+    <a href="#galeria">Ako to prebieha</a><a href="#faq">Otázky</a><a href="#kontakt">Kontakt</a>
+    <a href="./vytycenie-stavby.html">Vytýčenie stavby</a><a href="./geometricky-plan.html">Geometrický plán</a><a href="./hranica-pozemku.html">Hranica pozemku</a>
+    <a class="menu__tel" href="tel:+421905292511">0905 292 511</a>
+  </nav>
   <div class="intro" id="intro" aria-hidden="true"><div class="intro__logo" id="introLogo"></div></div>
   <div class="callbar" id="callbar"><a href="tel:+421905292511">Zavolať</a><a href="#ask">Napísať</a></div>
   <script type="module" src="/src/main.ts"></script>
