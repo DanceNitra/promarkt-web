@@ -260,3 +260,7 @@ html.is-static #film { display: none; }
 /* ---------- #10: rise-in ---------- */
 .rise { opacity: 0; transform: translateY(18px); transition: opacity .5s ease var(--d, 0ms), transform .5s ease var(--d, 0ms); }
 .rise.is-in { opacity: 1; transform: none; }
+
+/* ---------- #11: skip link for keyboard users ---------- */
+.skip { position: fixed; left: 12px; top: -60px; z-index: 60; background: var(--orange); color: var(--ink); padding: 10px 14px; font-weight: 700; text-decoration: none; }
+.skip:focus { top: 12px; }
