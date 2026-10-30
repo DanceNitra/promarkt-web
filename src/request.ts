@@ -91,9 +91,12 @@ if (chap) {
   const anchors = ['k0', 'k1', 'k2', 'k3'].map((id) => document.getElementById(id));
   const rail = [...document.querySelectorAll<HTMLAnchorElement>('#rail a')];
   const tick = () => {
-    const y = window.scrollY + window.innerHeight * 0.5;
+    // #48: a visible chapter card wins; between cards the last anchor passed (a small offset, not half a screen)
+    const y = window.scrollY + window.innerHeight * 0.1;
     let last = -1;
     anchors.forEach((el, i) => { if (el && el.getBoundingClientRect().top + window.scrollY <= y) last = i; });
+    const card = names.findIndex(([id]) => { const c = document.getElementById(id); return !!c && getComputedStyle(c).visibility !== 'hidden' && Number(getComputedStyle(c).opacity) > 0.5; });
+    if (card >= 0) last = card;
     const inFilm = !!narrative && window.scrollY < narrative.offsetHeight - window.innerHeight * 1.05 && window.scrollY > window.innerHeight * 0.15;
     rail.forEach((a, i) => a.classList.toggle('is-on', i === last));
     document.getElementById('rail')?.classList.toggle('is-on', inFilm);
