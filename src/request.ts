@@ -194,3 +194,20 @@ const qSend = document.getElementById('qSend') as HTMLAnchorElement | null;
 const qUpdate = () => { if (qSend) qSend.href = `sms:${NUMBER}?&body=${encodeURIComponent(`Dobrý deň, mám otázku: ${qText?.value.trim() ?? ''}`)}`; };
 qText?.addEventListener('input', qUpdate);
 qUpdate();
+
+// #78: the visitor says where the build is; the matching service is named and preselected in the form
+const stageBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.stage__track button'));
+stageBtns.forEach((b) => b.addEventListener('click', () => {
+  stageBtns.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+  document.getElementById('stageH')!.textContent = b.dataset.h ?? '';
+  document.getElementById('stageP')!.textContent = b.dataset.p ?? '';
+  (document.getElementById('stageGo') as HTMLAnchorElement).href = `./?s=${encodeURIComponent(b.dataset.svc ?? '')}#ask`;
+}));
+document.getElementById('stageGo')?.addEventListener('click', (e) => {
+  const svc = new URL((e.currentTarget as HTMLAnchorElement).href).searchParams.get('s');
+  const r = document.querySelector<HTMLInputElement>(`input[name="svc"][value="${svc}"]`);
+  if (!r) return;
+  e.preventDefault();
+  r.checked = true; r.dispatchEvent(new Event('input', { bubbles: true }));
+  document.getElementById('ask')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});

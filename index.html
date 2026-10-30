@@ -197,6 +197,21 @@
       </dialog>
     </section>
 
+    <section class="stage" id="stavba" aria-labelledby="stage-h">
+      <div class="stage__inner">
+        <p class="eyebrow">Kde je vaša stavba?</p>
+        <h2 id="stage-h">Kliknite, kde práve ste. Povieme, čo potrebujete.</h2>
+        <ol class="stage__track" role="tablist">
+          <li><button role="tab" aria-selected="false" data-svc="vytýčenie hranice pozemku" data-h="Hranica pozemku" data-p="Body hranice z katastra vyznačíme v teréne. Viete, kde môže stáť plot aj dom.">Kupujem pozemok</button></li>
+          <li><button role="tab" aria-selected="true" data-svc="vytýčenie stavby" data-h="Vytýčenie stavby" data-p="Rohy, osi a výškový bod vyznačíme v teréne podľa projektu. Dostanete protokol o vytýčení.">Mám projekt a povolenie</button></li>
+          <li><button role="tab" aria-selected="false" data-svc="vytýčenie stavby" data-h="Vytýčenie na základoch" data-p="Na hotových základoch vytýčime múry znova, klincom do betónu.">Základy sú hotové</button></li>
+          <li><button role="tab" aria-selected="false" data-svc="geometrický plán" data-h="Geometrický plán pre úver" data-p="Zameriame rozostavaný dom roh po rohu a pripravíme geometrický plán pre úver.">Hrubá stavba stojí</button></li>
+          <li><button role="tab" aria-selected="false" data-svc="geometrický plán" data-h="Geometrický plán ku kolaudácii" data-p="Zameriame hotový dom a pripravíme geometrický plán ku kolaudácii.">Idem kolaudovať</button></li>
+        </ol>
+        <div class="stage__out" role="tabpanel" aria-live="polite"><div><p class="stage__tag">Potrebujete</p><h3 id="stageH">Vytýčenie stavby</h3><p id="stageP">Rohy, osi a výškový bod vyznačíme v teréne podľa projektu. Dostanete protokol o vytýčení.</p></div><a class="btn" id="stageGo" href="./?s=vyt%C3%BD%C4%8Denie%20stavby#ask">Objednať, cena vopred</a></div>
+      </div>
+    </section>
+
     <section class="faq" id="faq" aria-labelledby="faq-h">
       <div class="faq__inner">
         <p class="eyebrow eyebrow--ink">Časté otázky</p>
