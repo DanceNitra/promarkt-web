@@ -239,6 +239,7 @@ function render() {
   video.style.transform = `scale(${z.s.toFixed(4)})`;
 
   hero.style.opacity = String(1 - clamp01((t - HERO_END + 0.4) / 0.4));
+  hero.parentElement!.style.setProperty('--scrim', hero.style.opacity); // #42: the scrim leaves with the hero
   hero.style.visibility = t > HERO_END ? 'hidden' : 'visible';
   CARDS.forEach(([, c0, f0, c1, f1], i) => driveCard(cards[i], t > at(c0, f0) && t < at(c1, f1), reduced));
   measure.classList.toggle('is-on', t > MEASURE[0] && t < MEASURE[1]);
