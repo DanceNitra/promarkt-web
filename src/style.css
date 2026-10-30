@@ -215,3 +215,10 @@ html.is-static #film { display: none; }
 @media (max-width: 860px) { .hero .btn--ghost { display: inline-block; margin: 0; } .hero .btn:not(.btn--ghost) { display: none; } }
 
 .cue.is-gone { opacity: 0; transition: opacity .3s; }
+
+/* ---------- #3: the order in three steps ---------- */
+.steps3 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(44,44,46,.35); }
+.steps3 li { padding: 12px 14px; font-size: 15px; border-right: 1px solid rgba(44,44,46,.35); }
+.steps3 li:last-child { border-right: 0; }
+.steps3 b { font-family: var(--mono); color: var(--stake); margin-right: 6px; }
+@media (max-width: 860px) { .steps3 { grid-template-columns: 1fr; } .steps3 li { border-right: 0; border-bottom: 1px solid rgba(44,44,46,.35); } .steps3 li:last-child { border-bottom: 0; } }
