@@ -264,3 +264,11 @@ html.is-static #film { display: none; }
 /* ---------- #11: skip link for keyboard users ---------- */
 .skip { position: fixed; left: 12px; top: -60px; z-index: 60; background: var(--orange); color: var(--ink); padding: 10px 14px; font-weight: 700; text-decoration: none; }
 .skip:focus { top: 12px; }
+
+/* ---------- #14: print the contact page as a card ---------- */
+@media print {
+  .nav, .callbar, .intro, .stage, .gallery, .skip, .ask__send, .copy, .vcf { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; }
+  .block, .faq, .foot { background: #fff !important; color: #000 !important; padding: 0 0 12mm; }
+  .narrative { height: auto !important; }
+}
