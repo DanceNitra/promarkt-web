@@ -177,7 +177,8 @@ else {
     video.addEventListener('loadedmetadata', () => { video.currentTime = at; }, { once: true });
     document.documentElement.classList.add('is-local');
   }).catch(() => { /* the streamed file keeps working */ });
-  setTimeout(() => { if (video.readyState < 2 && fixedT === null) enterStatic(); }, 3000);
+  // #106: no permanent fallback to the eight stills on a slow first load. Until the film can play, render() shows the
+  // nearest still for every time that is not buffered, and the film takes over as soon as data arrives.
 }
 video.addEventListener('loadeddata', () => { frame.style.backgroundImage = 'none'; });
 
@@ -248,6 +249,7 @@ function toScreen(px: number, py: number, z: { s: number; x: number; y: number }
 let target = fixedT !== null ? parseFloat(fixedT) : 0;
 let shown = target;
 let lastStill = '';
+let canPlay = true; // false once the browser refuses play() (power saving), then every step is a seek
 function render() {
   shown += (target - shown) * (fixedT !== null ? 1 : 0.2);
   const t = Math.min(DUR - 0.04, Math.max(0, shown));
@@ -264,9 +266,9 @@ function render() {
     // a seek costs one decode round trip (about 18 pictures a second, measured), so it is kept for jumps and for going back.
     if (video.readyState >= 2 && !video.seeking) {
       const d = t - video.currentTime;
-      if (d > 0.02 && d < 2.5) {
+      if (canPlay && d > 0.02 && d < 2.5) {
         video.playbackRate = Math.min(8, Math.max(0.3, d * 5));
-        if (video.paused) video.play().catch(() => {});
+        if (video.paused) video.play().catch(() => { canPlay = false; });
       } else {
         if (!video.paused) video.pause();
         if (Math.abs(d) > 1 / 60) video.currentTime = t;
