@@ -313,4 +313,19 @@ html.is-static #film { display: none; }
 .quick span { font-size: 13px; color: var(--muted); }
 .quick a:hover span { color: var(--ink); }
 .quick__f { margin: 0; padding: 10px 18px; font-family: var(--mono); font-size: 11px; background: var(--ink); color: var(--paper); }
-@media (max-width: 1100px) { .quick { display: none; } }
+@media (max-width: 1100px) and (min-width: 861px) { .quick { display: none; } }
+
+/* ---------- #34: on a phone the hero is a bottom sheet, readable over any frame, with the three situations as chips ---------- */
+@media (max-width: 860px) {
+  .hero { left: 0; right: 0; bottom: 56px; max-width: none; padding: 120px 16px 16px; background: linear-gradient(to top, rgba(23,24,26,.97) 0, rgba(23,24,26,.92) 58%, rgba(23,24,26,0) 100%); }
+  .hero h1 { font-size: 40px; margin-bottom: 10px; }
+  .hero__sub { font-size: 15px; margin-bottom: 14px; }
+  .hero .btn--ghost, .cue { display: none !important; }
+  .hero .eyebrow { background: none; padding: 0; }
+  .quick { position: static; transform: none; width: auto; display: flex; gap: 8px; overflow-x: auto; background: none; border: 0; box-shadow: none; margin: 0 -16px; padding: 0 16px 2px; scrollbar-width: none; }
+  .quick__h, .quick__f, .quick span, .quick a::after { display: none; }
+  .quick a { flex: 0 0 auto; border: 1.5px solid var(--paper); padding: 10px 14px; color: var(--paper); }
+  .quick a:first-of-type { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+  .quick b { font-size: 15px; }
+  .hero__note { margin-top: 12px; }
+}
