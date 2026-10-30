@@ -317,3 +317,6 @@ if (fixedT !== null) {
   window.addEventListener('resize', measureSteps);
   window.addEventListener('load', measureSteps);
 }
+
+// #2: the scroll cue goes away once the visitor has scrolled
+window.addEventListener('scroll', () => { document.getElementById('cue')?.classList.toggle('is-gone', window.scrollY > 40); }, { passive: true });
