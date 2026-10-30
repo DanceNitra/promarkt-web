@@ -91,3 +91,11 @@ if (share && typeof navigator.share === 'function') {
   share.hidden = false;
   share.addEventListener('click', () => { navigator.share({ title: 'Geodet Nitra, PROMARKT NITRA SK', text: 'Geodet Rastislav Drahoš, Nitra a okolie. 0905 292 511', url: location.origin + location.pathname }).catch(() => {}); });
 }
+
+// #32: three plain-language buttons choose the service for visitors who do not know the term
+document.querySelectorAll<HTMLButtonElement>('#askHelp button').forEach((b) => {
+  b.addEventListener('click', () => {
+    const r = form?.querySelector<HTMLInputElement>(`input[name="svc"][value="${CSS.escape(b.dataset.svc || '')}"]`);
+    if (r) { r.checked = true; update(); r.dispatchEvent(new Event('input', { bubbles: true })); }
+  });
+});

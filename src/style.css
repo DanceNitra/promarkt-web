@@ -296,3 +296,8 @@ html.is-static #film { display: none; }
 .hero__note { display: inline-block; background: var(--paper); color: var(--ink); text-shadow: none; font-weight: 700; font-size: 14px; padding: 6px 10px; margin-top: 14px; }
 .hero__note::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--stake); margin-right: 8px; }
 .cue { margin-top: 16px; }
+
+/* ---------- #32: choose by situation ---------- */
+.ask__help { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 15px; }
+.ask__help button { font: inherit; font-size: 14px; background: none; border: 0; border-bottom: 2px solid var(--orange); padding: 2px 0; cursor: pointer; color: var(--ink); font-weight: 600; }
+.ask__help button:hover { background: var(--orange); }
