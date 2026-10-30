@@ -143,15 +143,15 @@
             <li><b>2</b> Do 24 hodín sa ozveme.</li>
             <li><b>3</b> Dohodneme cenu a termín.</li>
           </ol>
-          <div class="ask__row">
-            <label class="ask__field">Obec alebo parcela<input id="askPlace" name="place" type="text" autocomplete="off" placeholder="napr. Nitra, Chrenová" /></label>
-            <a class="btn ask__send" id="askSend" href="sms:+421905292511">Napísať SMS</a>
-          </div>
-          <button class="mapbtn" id="mapBtn" type="button" aria-expanded="false" aria-controls="mapBox"><i></i>Neviete číslo parcely? Ukážte pozemok na mape</button>
+          <button class="mapbtn" id="mapBtn" type="button" aria-expanded="false" aria-controls="mapBox"><i></i><span><b>Ukážte pozemok na mape katastra</b><small>Číslo parcely doplníme za vás</small></span></button>
           <div class="mapbox" id="mapBox" hidden>
             <div class="mapbox__find" role="search"><input id="mapQ" type="search" placeholder="Obec a ulica, napr. Lužianky, Hlavná" aria-label="Hľadať miesto na mape" /><button type="button" id="mapGo">Nájsť</button></div>
             <div class="mapbox__map" id="map" role="application" aria-label="Katastrálna mapa"></div>
             <div class="mapbox__bar"><p id="mapOut" aria-live="polite">Priblížte sa a kliknite na svoj pozemok. Číslo parcely doplníme do správy.</p><button type="button" id="mapMe">Moja poloha</button></div>
+          </div>
+          <div class="ask__row">
+            <label class="ask__field">Obec alebo parcela<input id="askPlace" name="place" type="text" autocomplete="off" placeholder="napr. Nitra, Chrenová" /></label>
+            <a class="btn ask__send" id="askSend" href="sms:+421905292511">Napísať SMS</a>
           </div>
           <p class="note" id="askPreview" aria-live="polite"></p>
         </form>

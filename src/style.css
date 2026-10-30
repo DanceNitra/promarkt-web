@@ -554,3 +554,11 @@ html.is-static #film { display: none; }
 .mapbox__find { display: flex; border-bottom: 1px solid var(--ink); }
 .mapbox__find input { flex: 1; min-width: 0; border: 0; padding: 12px 14px; font: 15px var(--display); background: #fff; color: var(--ink); }
 .mapbox__find button { border: 0; background: var(--ink); color: var(--paper); font: 600 14px var(--display); padding: 0 18px; cursor: pointer; }
+/* #73 the map comes before the place field: point first, the field fills itself */
+.mapbtn { margin: 14px 0 0; border: 2px solid var(--ink); border-style: solid; background: #fff; padding: 14px 16px; }
+.mapbtn span { display: grid; gap: 2px; }
+.mapbtn b { font-size: 16px; }
+.mapbtn small { font: 400 13px var(--display); color: var(--muted); }
+.mapbtn::after { content: '→'; margin-left: auto; font-weight: 800; font-size: 18px; }
+.mapbtn[aria-expanded="true"]::after { content: '×'; }
+.mapbox + .ask__row, .mapbtn + .mapbox[hidden] + .ask__row { margin-top: 14px; }
