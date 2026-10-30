@@ -53,3 +53,7 @@ nav.more{display:block}
 .svc:hover b{background:#dc802d}
 .back{display:flex;gap:20px;font-size:15px}
 @media(max-width:860px){.svcs{grid-template-columns:1fr}}
+
+/* #62: a short clip from the film leads each service page */
+.clip video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#2c2c2e;box-shadow:10px 10px 0 #dc802d}
+.clip+figure img{box-shadow:10px 10px 0 #f3f1ea}
