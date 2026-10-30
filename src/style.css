@@ -365,3 +365,9 @@ html.is-static #film { display: none; }
 .rail a.is-on i { background: var(--orange); height: 40px; }
 .rail a:hover { color: var(--paper); }
 @media (max-width: 860px) { .rail { display: none; } }
+
+/* ---------- #38: the closing call stands on the first stake of the film ---------- */
+.closer { background: linear-gradient(90deg, rgba(23,24,26,.94) 0%, rgba(23,24,26,.78) 45%, rgba(23,24,26,.35) 100%), url('/gal/g1_l.jpg') center 40% / cover no-repeat; text-align: left; padding: 18vh clamp(16px, 6vw, 90px); }
+.closer h2 { font-size: clamp(40px, 6vw, 96px); max-width: 14ch; }
+.closer p { justify-content: flex-start; }
+.closer::after { content: 'Nitra a okolie · 0905 292 511'; display: block; margin-top: 28px; font-family: var(--mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); }
