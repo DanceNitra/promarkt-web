@@ -68,6 +68,7 @@ btn?.addEventListener('click', async () => {
       if (!r) { if (out) out.textContent = 'Tu sme parcelu nenašli. Skúste kliknúť do stredu pozemku.'; return; }
       if (place) { place.dataset.pos = `${e.latlng.lat.toFixed(6)},${e.latlng.lng.toFixed(6)}`; place.value = `parcela ${r.no}, k. ú. ${r.area}`; place.dispatchEvent(new Event('input', { bubbles: true })); }
       // #74: the choice shows on the button itself, so the map can close and the form stays short
+      try { sessionStorage.setItem('pm_parcel', JSON.stringify({ ...r, ring: null, pos: place?.dataset.pos ?? '' })); } catch { /* private mode */ }
       if (btn) { btn.classList.add('is-set'); btn.querySelector('b')!.textContent = `Parcela ${r.no}, k. ú. ${r.area}`; btn.querySelector('small')!.textContent = `${r.m2 ? `${Number(r.m2).toLocaleString('sk-SK')} m² · ` : ''}${r.kind ? r.kind.toLowerCase() : ''} · zmeniť na mape`; }
       if (out) out.textContent = `Parcela ${r.no}, k. ú. ${r.area}${r.m2 ? `, ${Number(r.m2).toLocaleString('sk-SK')} m²` : ''}${r.kind ? `, ${r.kind.toLowerCase()}` : ''}. Kliknite inam, ak to nie je on.`;
       if (ok) ok.hidden = false; // #86: the visitor confirms the outline; a wrong plot is one more click away, not a closed map
@@ -118,3 +119,21 @@ if (here && matchMedia('(pointer: coarse)').matches && 'geolocation' in navigato
     box?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   });
 }
+
+// #95: a parcel picked on one page is still picked on the next (home page and service pages share it for the visit)
+function showSet(r: Parcel) {
+  if (!btn) return;
+  btn.classList.add('is-set');
+  btn.querySelector('b')!.textContent = `Parcela ${r.no}, k. ú. ${r.area}`;
+  btn.querySelector('small')!.textContent = `${r.m2 ? `${Number(r.m2).toLocaleString('sk-SK')} m² · ` : ''}${r.kind ? r.kind.toLowerCase() : ''} · zmeniť na mape`;
+}
+try {
+  const saved = JSON.parse(sessionStorage.getItem('pm_parcel') || 'null') as (Parcel & { pos: string }) | null;
+  const txt = saved ? `parcela ${saved.no}, k. ú. ${saved.area}` : '';
+  if (saved && place && (!place.value.trim() || place.value === txt)) {
+    place.value = txt;
+    if (saved.pos) place.dataset.pos = saved.pos;
+    place.dispatchEvent(new Event('input', { bubbles: true }));
+    showSet(saved);
+  }
+} catch { /* private mode */ }
