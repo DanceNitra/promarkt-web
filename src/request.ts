@@ -225,7 +225,7 @@ document.getElementById('stageGo')?.addEventListener('click', (e) => {
   if (!r) return;
   e.preventDefault();
   r.checked = true; r.dispatchEvent(new Event('input', { bubbles: true }));
-  document.getElementById('ask')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('ask')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 });
 
 // #81: links to this page's own form (?s=…, ?map=1, #ask) no longer reload the 14 MB film; the form is filled in place
@@ -241,5 +241,5 @@ document.addEventListener('click', (e) => {
   if (r) { r.checked = true; r.dispatchEvent(new Event('input', { bubbles: true })); }
   const mb = document.getElementById('mapBtn');
   if (u.searchParams.get('map') === '1' && mb?.getAttribute('aria-expanded') !== 'true') mb?.click();
-  document.getElementById('ask')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('ask')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 });

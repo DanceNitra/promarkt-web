@@ -98,7 +98,7 @@ btn?.addEventListener('click', async () => {
   document.getElementById('mapGo')?.addEventListener('click', find);
   q?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); find(); } });
   const ok = document.getElementById('mapOk') as HTMLButtonElement | null;
-  ok?.addEventListener('click', () => { ok.hidden = true; btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: 'smooth' }); });
+  ok?.addEventListener('click', () => { ok.hidden = true; btn?.click(); btn?.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); });
   ready();
   map.on('locationfound', (e: L.LocationEvent) => { map.setView(e.latlng, 18); pick(e); });
   map.on('locationerror', () => { if (out) out.textContent = 'Polohu sa nepodarilo zistiť. Nájdite pozemok vyhľadaním alebo na mape.'; });
@@ -116,7 +116,7 @@ if (here && matchMedia('(pointer: coarse)').matches && 'geolocation' in navigato
     if (box?.hidden) btn?.click();
     await mapReady;
     document.getElementById('mapMe')?.click();
-    box?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    box?.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
 }
 

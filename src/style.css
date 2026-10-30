@@ -634,3 +634,6 @@ html.is-static #film { display: none; }
 @media (max-width: 860px) { .hero .quick span { color: rgba(243,241,234,.78); opacity: 1; } .hero .quick a:first-of-type span { color: rgba(44,44,46,.8); } }
 /* #94 the bottom bar sends the prepared SMS */
 .callbar a.is-ready { background: var(--stake); color: #fff; }
+/* #96 keyboard focus on everything added since #69 */
+.where__track button:focus-visible, .where__out .btn:focus-visible, .qbox .btn:focus-visible, .menu__big:focus-visible, .menu__svcs a:focus-visible, .nav__map:focus-visible, .callbar a:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
+.where__track button:focus-visible { outline-color: var(--ink); }

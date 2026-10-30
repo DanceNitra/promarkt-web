@@ -40,3 +40,5 @@
 .maphere { display: block; width: 100%; margin-top: 6px; padding: 11px 14px; border: 1.5px solid var(--orange); background: var(--ink); color: var(--paper); font: 600 14px var(--display); text-align: left; cursor: pointer; }
 .maphere::before { content: '◎'; margin-right: 8px; color: var(--orange); }
 .maphere[hidden] { display: none; }
+/* #96 keyboard focus on the map controls */
+.mapbtn:focus-visible, .maphere:focus-visible, .mapbox button:focus-visible, .mapbox input:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
