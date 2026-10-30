@@ -28,6 +28,14 @@ function update(): void {
   const msg = document.createElement('span'); msg.className = 'bubble'; msg.textContent = body.replace(/ Mapa: https:\/\/\S+/, '');
   if (/ Mapa: https:/.test(body)) { const m = document.createElement('span'); m.className = 'bubble__link'; m.textContent = 'odkaz na parcelu v mape katastra'; msg.append(' ', m); }
   preview.append(who, msg);
+  // #94: once a place is known, the phone's bottom bar sends the finished message instead of scrolling to the form
+  const bar = document.querySelector<HTMLAnchorElement>('#callbar a[href="#ask"], #callbar a.is-ready');
+  if (bar) {
+    const ready = Boolean(place?.value.trim());
+    bar.classList.toggle('is-ready', ready);
+    bar.href = ready ? send.href : '#ask';
+    bar.textContent = ready ? 'Poslať SMS ✓' : 'Napísať';
+  }
 }
 
 form?.addEventListener('input', (e) => { if (e.isTrusted && e.target === place && place) delete place.dataset.pos; update(); });

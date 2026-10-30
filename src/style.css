@@ -632,3 +632,5 @@ html.is-static #film { display: none; }
   .hero h1 { font-size: 36px; }
 }
 @media (max-width: 860px) { .hero .quick span { color: rgba(243,241,234,.78); opacity: 1; } .hero .quick a:first-of-type span { color: rgba(44,44,46,.8); } }
+/* #94 the bottom bar sends the prepared SMS */
+.callbar a.is-ready { background: var(--stake); color: #fff; }
