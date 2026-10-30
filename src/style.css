@@ -427,3 +427,14 @@ html.is-static #film { display: none; }
   .faq__side h2 { font-size: clamp(30px, 3vw, 46px); }
   .faq__list { border-top: 1px solid rgba(44,44,46,.35); }
 }
+
+/* ---------- #45: a footer in three columns ---------- */
+.foot { padding-top: 56px; }
+.foot__cols { max-width: 1240px; margin: 0 auto 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.foot__cols a { display: block; color: var(--paper); text-decoration: none; padding: 4px 0; font-size: 15px; }
+.foot__cols a:hover { color: var(--orange); }
+.foot__h { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--orange) !important; margin: 0 0 12px !important; }
+.foot__cols p { font-size: 15px; line-height: 1.6; }
+.foot__tel { font-family: var(--mono); font-size: 22px !important; }
+.foot__legal { max-width: 1240px !important; margin: 0 auto !important; padding-top: 20px; border-top: 1px solid rgba(243,241,234,.15); font-size: 12px; color: #9d9b95; }
+@media (max-width: 860px) { .foot__cols { grid-template-columns: 1fr; gap: 24px; } }
