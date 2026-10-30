@@ -575,3 +575,11 @@ html.is-static #film { display: none; }
 .qbox__row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .qbox__tel { font-family: var(--mono); font-size: 14px; color: var(--ink); }
 .faq details a { color: var(--ink); text-decoration-color: var(--orange); text-underline-offset: 3px; }
+/* #77 phone: the question box comes after the list it extends; the closer offers the map too */
+@media (max-width: 860px) {
+  .faq__inner { display: flex; flex-direction: column; }
+  .faq__side { display: contents; }
+  .faq__side .qbox { order: 3; }
+  .closer .closer__map { display: inline-block; }
+}
+.closer__map::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 8px; border: 2px solid var(--stake); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); vertical-align: -1px; }
