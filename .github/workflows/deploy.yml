@@ -22,8 +22,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci --ignore-scripts
-      # the lockfile is written on Windows; npm then skips rollup's Linux binary (npm/cli#4828)
-      - run: npm install --no-save --ignore-scripts @rollup/rollup-linux-x64-gnu@4.64.0
+      # the lockfile is written on Windows; npm then skips the Linux binaries of rollup and esbuild (npm/cli#4828)
+      - run: npm install --no-save --ignore-scripts @rollup/rollup-linux-x64-gnu@4.64.0 @esbuild/linux-x64@0.21.5
       - run: npx vite build
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
