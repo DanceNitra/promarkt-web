@@ -1,3 +1,4 @@
+import './phone';
 // #70: the visitor points at the plot on the cadastral map and the form gets its parcel number and cadastral area.
 // The map and Leaflet load only when the button is pressed. Parcel data: ÚGKK SR cadastral WMS (GetFeatureInfo, CORS open).
 const WMS = 'https://kataster.skgeodesy.sk/eskn/services/NR/kn_wms_norm/MapServer/WmsServer';

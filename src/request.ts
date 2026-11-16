@@ -1,10 +1,11 @@
+import { PHONE_INTL, PHONE_SHOW, SMS, TEL } from './phone';
 import qrcode from 'qrcode-generator';
 // #61: Slovak diacritics in the QR text must be UTF-8 bytes; the library default is one byte per character.
 // The ESM build has no stringToBytesFuncs (that broke this whole file in #60), so encode with TextEncoder.
 try { (qrcode as unknown as { stringToBytes: (s: string) => number[] }).stringToBytes = (s: string) => Array.from(new TextEncoder().encode(s)); } catch { /* keep the default */ }
 // Contact request: the visitor picks a service and a place, and the SMS to the surveyor is prefilled.
 // No server involved: the button opens the phone's own messages app.
-const NUMBER = '+421905292511';
+const NUMBER = PHONE_INTL;
 const form = document.getElementById('ask') as HTMLFormElement | null;
 const place = document.getElementById('askPlace') as HTMLInputElement | null;
 const send = document.getElementById('askSend') as HTMLAnchorElement | null;
@@ -24,7 +25,7 @@ function update(): void {
   send.href = `sms:${NUMBER}?&body=${encodeURIComponent(body)}`;
   // #87: the preview looks like the SMS it becomes, and the long map link reads as what it is
   preview.innerHTML = '';
-  const who = document.createElement('span'); who.className = 'bubble__to'; who.textContent = 'SMS pre: Geodet · 0905 292 511';
+  const who = document.createElement('span'); who.className = 'bubble__to'; who.textContent = `SMS pre: Geodet · ${PHONE_SHOW}`;
   const msg = document.createElement('span'); msg.className = 'bubble'; msg.textContent = body.replace(/ Mapa: https:\/\/\S+/, '');
   if (/ Mapa: https:/.test(body)) { const m = document.createElement('span'); m.className = 'bubble__link'; m.textContent = 'odkaz na parcelu v mape katastra'; msg.append(' ', m); }
   preview.append(who, msg);
@@ -45,8 +46,8 @@ update();
 // #9: on a desktop there is nothing to dial, so the number can be copied
 const copy = document.getElementById('copyNum') as HTMLButtonElement | null;
 copy?.addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText('0905 292 511'); copy.textContent = 'Skopírované'; }
-  catch { copy.textContent = '0905 292 511'; }
+  try { await navigator.clipboard.writeText(PHONE_SHOW); copy.textContent = 'Skopírované'; }
+  catch { copy.textContent = PHONE_SHOW; }
   setTimeout(() => { copy.textContent = 'Skopírovať číslo'; }, 2200);
 });
 
@@ -151,7 +152,7 @@ if (chap) {
 const share = document.getElementById('shareSite') as HTMLButtonElement | null;
 if (share && typeof navigator.share === 'function') {
   share.hidden = false;
-  share.addEventListener('click', () => { navigator.share({ title: 'Geodet Nitra, PROMARKT NITRA SK', text: 'Geodet Rastislav Drahoš, Nitra a okolie. 0905 292 511', url: location.origin + location.pathname }).catch(() => {}); });
+  share.addEventListener('click', () => { navigator.share({ title: 'Geodet Nitra, PROMARKT NITRA SK', text: `Geodet Rastislav Drahoš, Nitra a okolie. ${PHONE_SHOW}`, url: location.origin + location.pathname }).catch(() => {}); });
 }
 
 // #32: three plain-language buttons choose the service for visitors who do not know the term
@@ -184,7 +185,7 @@ document.querySelectorAll<HTMLButtonElement>('#galGrid button').forEach((b) => {
 if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
   const dlg = document.createElement('dialog');
   dlg.className = 'qrdlg';
-  dlg.innerHTML = '<p class="qrdlg__h">Pošlite SMS z mobilu</p><div class="qrdlg__qr"></div><p class="qrdlg__t">Namierte fotoaparát telefónu na kód. Otvorí sa správa pre <b>0905 292 511</b> s týmto textom:</p><p class="qrdlg__m"></p><div class="qrdlg__bar"><a class="btn" href="tel:+421905292511">Radšej zavolať</a><button type="button" class="act">Zavrieť</button></div>';
+  dlg.innerHTML = '<p class="qrdlg__h">Pošlite SMS z mobilu</p><div class="qrdlg__qr"></div><p class="qrdlg__t">Namierte fotoaparát telefónu na kód. Otvorí sa správa pre <b>' + PHONE_SHOW + '</b> s týmto textom:</p><p class="qrdlg__m"></p><div class="qrdlg__bar"><a class="btn" href="' + TEL + '">Radšej zavolať</a><button type="button" class="act">Zavrieť</button></div>';
   document.body.appendChild(dlg);
   dlg.querySelector('button')!.addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
@@ -192,11 +193,11 @@ if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const a = (e.target as HTMLElement).closest('a[href^="sms:"]') as HTMLAnchorElement | null;
     if (!a) return;
     e.preventDefault();
-    const href = a.getAttribute('href') || 'sms:+421905292511';
+    const href = a.getAttribute('href') || SMS;
     const body = decodeURIComponent((href.split('body=')[1] || ''));
     // #59: phone cameras read the SMSTO: form of an SMS QR code more widely than an sms: link
     const qr = qrcode(0, 'M');
-    qr.addData(`SMSTO:+421905292511:${body}`, 'Byte');
+    qr.addData(`SMSTO:${PHONE_INTL}:${body}`, 'Byte');
     qr.make();
     dlg.querySelector('.qrdlg__qr')!.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
     dlg.querySelector('.qrdlg__m')!.textContent = body || 'Dobrý deň, prosím o cenu a termín.';

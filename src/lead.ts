@@ -1,3 +1,4 @@
+import { PHONE_SHOW } from './phone';
 // #103: a message or a call-back request sent from the page itself, for visitors on a computer or without credit.
 // It goes to the lead Worker (worker/src/index.ts), which checks Cloudflare Turnstile, limits each IP address and
 // forwards one Telegram message. Both buttons stay hidden until the build is given the Worker URL and the site key.
@@ -68,9 +69,9 @@ if (box && LEAD_URL && SITEKEY) {
     }
     const why: Record<string, string> = {
       phone: 'Skontrolujte telefónne číslo.', captcha: 'Overenie „nie som robot“ neprešlo. Skúste ho znova.',
-      rate: 'Priveľa pokusov za minútu. Skúste to o chvíľu.', net: 'Spojenie zlyhalo. Zavolajte prosím 0905 292 511.',
+      rate: 'Priveľa pokusov za minútu. Skúste to o chvíľu.', net: `Spojenie zlyhalo. Zavolajte prosím ${PHONE_SHOW}.`,
     };
-    status.textContent = why[r.error ?? ''] ?? 'Nepodarilo sa odoslať. Zavolajte prosím 0905 292 511.';
+    status.textContent = why[r.error ?? ''] ?? `Nepodarilo sa odoslať. Zavolajte prosím ${PHONE_SHOW}.`;
     token = '';
     if (widget !== undefined) tw()?.reset(widget);
   });
