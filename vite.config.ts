@@ -6,6 +6,6 @@ export default defineConfig({
   base: './',
   build: {
     target: 'esnext', cssMinify: true, modulePreload: { polyfill: false },
-    rollupOptions: { input: { main: 'index.html', vytycenie: 'vytycenie-stavby.html', gp: 'geometricky-plan.html', hranica: 'hranica-pozemku.html' } },
+    rollupOptions: { input: { main: 'index.html', vytycenie: 'vytycenie-stavby.html', gp: 'geometricky-plan.html', hranica: 'hranica-pozemku.html', zameranie: 'zameranie-pre-projektanta.html' } },
   },
 });
