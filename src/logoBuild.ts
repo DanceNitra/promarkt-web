@@ -51,6 +51,7 @@ export function buildAt(logo: Logo, p: number) {
     let a = 0, b = 1;
     if (q.kind === 'swoosh') { a = q.k === 0 ? 0 : 0.06; b = a + 0.3; }
     else if (q.kind === 'nail') { a = 0.8; b = 1; }
+    else if (q.kind === 'drones') { a = 0.3; b = 0.75; }
     else { const i = letters.indexOf(q); a = 0.12 + (i / letters.length) * 0.5; b = a + 0.2; }
     const t = clamp01((p - a) / (b - a));
     let tf = '';
@@ -59,6 +60,11 @@ export function buildAt(logo: Logo, p: number) {
       const e = outCubic(t);
       tf = `translate(${q.x0} ${q.cy}) scale(${Math.max(0.001, e).toFixed(4)} 1) translate(${-q.x0} ${-q.cy})`;
       op = t > 0 ? 1 : 0;
+    } else if (q.kind === 'drones') {
+      // the survey flight arrives along the top swoosh from the left (owner 19. 11.: drones fly the swoosh)
+      const e = outCubic(t);
+      tf = `translate(${(-160 * (1 - e)).toFixed(2)} ${(18 * (1 - e)).toFixed(2)})`;
+      op = clamp01(t * 2);
     } else if (q.kind === 'nail') {
       const e = driven(t);
       tf = `translate(0 ${(-260 * (1 - e)).toFixed(2)})`;
